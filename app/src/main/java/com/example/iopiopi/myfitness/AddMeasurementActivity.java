@@ -1,10 +1,11 @@
 package com.example.iopiopi.myfitness;
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,15 +16,22 @@ import android.widget.TextView;
 import android.widget.DatePicker;
 import android.widget.ScrollView;
 import java.util.Calendar;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Calendar;
 
-import java.util.ArrayList;
+import MyFitness.MeasureCategory;
+import MyFitness.Measurement;
 
 public class AddMeasurementActivity extends AppCompatActivity {
-    protected int year;
-    protected int month;
-    protected int day;
+
+    public List<Measurement> measurementList;
+    public EditText editDate;
+    private int currentMeasurementType = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,46 +41,122 @@ public class AddMeasurementActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Bundle b = getIntent().getExtras();
+        currentMeasurementType = -1; // or other values
+        if(b != null) {
+            currentMeasurementType = b.getInt("currentMeasurementType");
+        }
+
         initializeActivity();
 
     }
 
     protected void initializeActivity() {
+        EditText editText;
         DBHelper db = new DBHelper(this);
-        ArrayList<String> measures = db.getAllBodyMeasureCategories();
+        ArrayList<MeasureCategory> measures = db.getAllBodyMeasureCategories(currentMeasurementType);
         LinearLayout rl = (LinearLayout) findViewById(R.id.addMeasuresLinear);
 
-
         Calendar calendar=Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+        measurementList = new ArrayList<Measurement>();
 
-        DatePicker datepicker = new DatePicker(this);
-        datepicker.setEnabled(true);
-        datepicker.updateDate(year, month, day);
+        int uqId = db.addUniqueId();
 
-        TextView textview=new TextView(this);
+        TextView textview = new TextView(this);
         textview.setText("Date");
+        textview.setId(uqId++);
         rl.addView(textview);
 
-        rl.addView(datepicker);
+        editDate = new EditText(this);
 
+        editDate.setId(uqId++);
+        editDate.setText(month + "/" + day + "/" + year);
+        rl.addView(editDate);
 
-        for (String measure: measures)
+        editDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddMeasurementActivity.this, DatePickerActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+        //rl.addView(datepicker);
+
+        int i = -1;
+        for (MeasureCategory measureCategory: measures)
         {
-            textview=new TextView(this);
-            textview.setText(measure);
+            i++;
+            textview = new TextView(this);
+            textview.setText(measureCategory.getCategoryName());
+            textview.setId(uqId++);
             rl.addView(textview);
 
-            EditText editText = new EditText(this);
+
+            editText = new EditText(this);
             editText.setText("");
-            //setContentView(editText);
+            editText.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            editText.setId(uqId++);
+            measurementList.add(i, new Measurement(0, null, measureCategory.getCategoryId(), 1, editText.getId()));
+
             rl.addView(editText);
         }
 
+        Button saveButton = new Button(this);
 
+        saveButton.setId(uqId++);
+        saveButton.setText("Save");
+        rl.addView(saveButton);
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            for(Measurement measurement: measurementList){
+                DBHelper db = new DBHelper(AddMeasurementActivity.this);
+                EditText editText = (EditText) findViewById(measurement.getUqId());
+                Float value = Float.valueOf(editText.getText().toString());
+                db.addMeasurment(measurement.getCategoryId(), value, editDate.getText().toString());
+            }
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton5);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Intent intent = new Intent(AddMeasurementActivity.this, AddCategoryActivity.class);
+            startActivityForResult(intent, 2);
+            }
+        });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                //String strEditText = data.getStringExtra("editTextValue");
+                LinearLayout rl = (LinearLayout) findViewById(R.id.addMeasuresLinear);
+                //rl mSpinner = (Spinner) findViewById(R.id.spinner);
+                //EditText editDate = (EditText) findViewById(1);
+                String date = data.getStringExtra("datePicked");
+
+                editDate.setText(date);
+            }
+        }
+        else if(requestCode == 2){
+            if(resultCode == RESULT_OK) {
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
 

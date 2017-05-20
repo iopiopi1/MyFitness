@@ -2,17 +2,75 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.iopiopi.myfitness.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="76dp"
+        android:layout_height="33dp"
+        android:text="all"
+        app:layout_constraintLeft_toRightOf="@+id/button6"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="76dp"
+        android:layout_height="33dp"
+        android:text="6m"
+        app:layout_constraintLeft_toRightOf="@+id/button4"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="76dp"
+        android:layout_height="33dp"
+        android:text="3m"
+        app:layout_constraintLeft_toRightOf="@+id/button"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="372dp"
+        android:layout_height="377dp"
+        android:layout_weight="204829168"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/button"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/button5"
+        tools:layout_editor_absoluteY="105dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="114dp"
+        android:layout_width="174dp"
         android:layout_height="30dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="76dp"
+        android:layout_height="33dp"
+        android:text="1m"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/spinner" />
 
 </android.support.constraint.ConstraintLayout>

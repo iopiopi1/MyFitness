@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cardamUrl">http://192.168.0.13:80</string>
+    <string name="cardamUrlSearchRegnum">/public/api/searchvehicle</string>
+    <string name="cardamUrlViewRegnum">/public/api/getvehicle</string>
+</resources>

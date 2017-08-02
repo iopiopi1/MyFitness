@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddMeasurementActivity"
+            android:name=".RegnumActivity"
             android:label="@string/title_activity_add_measurement"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -31,10 +31,10 @@
             android:name=".AddCategoryActivity"
             android:label="@string/title_activity_add_category"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
+        <!--<activity
             android:name=".DrawerActivity"
             android:label="@string/title_activity_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>-->
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -25,7 +25,7 @@ public class AddCategoryActivity extends AppCompatActivity {
             public void onClick(View view) {
             EditText editText = (EditText) findViewById(R.id.editText);
             String category = editText.getText().toString();
-            db.addCategory(category);
+            //db.addCategory(category);
 
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);

@@ -3,4 +3,5 @@
     <string name="cardamUrl">http://192.168.0.13:80</string>
     <string name="cardamUrlSearchRegnum">/public/api/searchvehicle</string>
     <string name="cardamUrlViewRegnum">/public/api/getvehicle</string>
+    <string name="cardamUrlCheckLogin">/user/checklogin</string>
 </resources>

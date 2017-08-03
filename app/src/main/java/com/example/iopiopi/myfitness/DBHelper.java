@@ -44,6 +44,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE AppUniqueId (id INTEGER PRIMARY KEY, timestamp TEXT )"
         );
 
+        db.execSQL("CREATE TABLE curUser (id INTEGER PRIMARY KEY, authLogin TEXT, authPass TEXT, status TEXT )"
+        );
+
         db.execSQL("CREATE TABLE JsonAnswer (id INTEGER PRIMARY KEY, JsonAnswer TEXT )"
         );
 
@@ -79,6 +82,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public void addJsonResultDatabase(SQLiteDatabase db, String JsonRes) {
         //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
         db.execSQL("UPDATE JsonAnswer SET JsonAnswer = '" + JsonRes + "' WHERE id = 1");
+    }
+
+
+    public void addCurUser(SQLiteDatabase db, String login, String Pass) {
+        //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
+        db.execSQL("INSERT INTO curUser (authLogin , authPass , status ) VALUES('"+login+"','"+Pass+"','ACTIVE')");
     }
 
     public String getJsonResultDatabase(SQLiteDatabase db) {

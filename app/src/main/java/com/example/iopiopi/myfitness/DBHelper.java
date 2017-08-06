@@ -6,8 +6,12 @@ import android.database.Cursor;
 import android.content.ContentValues;
 import android.content.Context;
 
+import org.json.JSONException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
+
+import MyFitness.KeyValueList;
 import MyFitness.MeasureCategory;
 import MyFitness.ChartData;
 import java.util.List;
@@ -31,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String APP_UNIQUE_ID_COLUMN_TIMESTAMP = "timestamp";
 
     SQLiteDatabase dbMyFitness;
+    private List<KeyValueList> postParams;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -53,6 +58,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO JsonAnswer (id, JsonAnswer) VALUES(1, NULL)"
         );
 
+        db.execSQL("INSERT INTO curUser (id, authLogin, authPass, status) VALUES(1, '', '', 'NON_ACTIVE')"
+        );
+
     }
 
     @Override
@@ -60,6 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         db.execSQL("DROP TABLE IF EXISTS AppUniqueId");
         db.execSQL("DROP TABLE IF EXISTS JsonAnswer");
+        db.execSQL("DROP TABLE IF EXISTS curUser");
         this.onCreate(db);
     }
 
@@ -87,7 +96,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void addCurUser(SQLiteDatabase db, String login, String Pass) {
         //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
+        db.execSQL("DELETE FROM curUser");
         db.execSQL("INSERT INTO curUser (authLogin , authPass , status ) VALUES('"+login+"','"+Pass+"','ACTIVE')");
+    }
+
+    public List<KeyValueList> getCurUser(SQLiteDatabase db) {
+        //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
+        String SQLquery = "SELECT authLogin , authPass , status FROM curUser";
+        Cursor cur = db.rawQuery(SQLquery, null);
+        cur.moveToFirst();
+        String authLogin = cur.getString(0);
+        String authPass = cur.getString(1);
+        cur.close();
+        postParams = new ArrayList<KeyValueList>();
+        postParams.add(0, new KeyValueList("username", authLogin));
+        postParams.add(1, new KeyValueList("password", authPass));
+
+        return postParams;
+
     }
 
     public String getJsonResultDatabase(SQLiteDatabase db) {

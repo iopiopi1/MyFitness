@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -33,6 +35,8 @@ import org.json.JSONException;
 import android.view.ViewGroup.LayoutParams;
 import android.util.Log;
 
+import MyFitness.KeyValueList;
+
 public class MainActivity extends AppCompatActivity {
 
     public String regnumSearch;
@@ -45,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<ImageView> images;
     public DBHelper db;
     public Activity mainActivity;
+    private List<KeyValueList> postParams;
+    private String cardamUrlCheckLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         init();
+        checkCurUser();
 
         regnumTv = (TextView) findViewById(R.id.regnumTv);
 
@@ -115,14 +123,21 @@ public class MainActivity extends AppCompatActivity {
         jt.execute();
     }
 
-    public void init(){
+    public void init(){ Intent intent = new Intent(this, PhotoActivity.class);startActivityForResult(intent, 1);
         cardamUrl = getResources().getString(R.string.cardamUrl);//"http://192.168.0.13:80";
-
         cardamUrlSearchRegnum = cardamUrl + getResources().getString(R.string.cardamUrlSearchRegnum);//cardamUrl + "/public/api/searchvehicle";
+        cardamUrlCheckLogin = cardamUrl + getResources().getString(R.string.cardamUrlCheckLogin);
         rlSearch = (LinearLayout) findViewById(R.id.linearLayout);
         rlSearch.setOrientation(LinearLayout.VERTICAL);
         images = new ArrayList<ImageView>();
         db = new DBHelper(this);
+        //db.deleteDatabase();
+    }
+
+    public void checkCurUser(){
+        postParams = db.getCurUser(db.dbMyFitness);
+        PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.constraintLayoutMain, PostTask.CHECKLOGINTYPE);
+        jt.execute();
     }
 
 }

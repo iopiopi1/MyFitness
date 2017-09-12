@@ -6,4 +6,5 @@
     <string name="cardamUrlCheckLogin">/public/user/checklogin</string>
     <string name="cardamUrlRestoreEmail">/public/user/restorepassword</string>
     <string name="cardamUrlRegister">/public/user/registerajax</string>
+    <string name="cardamUrlImageUpoad">/public/api/addimageajax</string>
 </resources>

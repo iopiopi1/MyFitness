@@ -1,6 +1,7 @@
 package com.example.iopiopi.myfitness;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,8 +26,10 @@ import java.util.List;
 
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
+import android.widget.Button;
 import android.widget.TabHost;
 
+import MyFitness.KeyValueList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,7 +46,7 @@ public class PhotoActivity extends AppCompatActivity {
     private TabItem photoTI;
     private TabItem galleryTI;
     private TabHost tab;
-
+    private Activity mActivity;
 
     private static final String PHOTOS_KEY = "easy_image_photos_list";
 
@@ -99,7 +102,7 @@ public class PhotoActivity extends AppCompatActivity {
                 .setCopyTakenPhotosToPublicGalleryAppFolder(true)
                 .setCopyPickedImagesToPublicGalleryAppFolder(true)
                 .setAllowMultiplePickInGallery(true);*/
-
+        mActivity = this;
     }
 
 
@@ -159,11 +162,13 @@ public class PhotoActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.constraintLayout3, pFragment);
         fragmentTransaction.commit();*/
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        //tabLayout.setupWithViewPager(mViewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int tabViewId = tab.getCustomView().getId();
                 if(tabViewId == photoTI.getId()){
+                    //EasyImage.openCamera(mActivity, 0);
                     //dispatchTakePictureIntent();
                     //galleryAddPic();
                     //FragmentManager.findFragmentById(R.id.photoFrgt1);
@@ -177,7 +182,7 @@ public class PhotoActivity extends AppCompatActivity {
 
                 }
                 else if (tabViewId == galleryTI.getId()){
-
+                    //EasyImage.openChooserWithGallery(mActivity, "Pick source", 0);
                 }
             }
 
@@ -236,6 +241,12 @@ public class PhotoActivity extends AppCompatActivity {
     @OnClick(R.id.chooser_button2)
     protected void onChooserWithGalleryClicked() {
         EasyImage.openChooserWithGallery(this, "Pick source", 0);
+    }
+
+    @OnClick(R.id.sendImagesBt)
+    protected void onSendPicsToServer() {
+        PostFilesTask fileTask = new PostFilesTask("http://192.168.0.13:80/public/api/addimageajax",photos);
+        fileTask.execute();
     }
 
     @Override

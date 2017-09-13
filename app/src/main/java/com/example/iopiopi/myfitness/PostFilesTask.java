@@ -50,7 +50,7 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... data) {
 
-        String result = multipartRequest(URL, postParams, imgs, "files", "image/jpeg");
+        String result = multipartRequest(URL, postParams, imgs, "files[f]", "image/jpeg");
 
         return result;
     }

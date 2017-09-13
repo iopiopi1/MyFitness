@@ -27,6 +27,8 @@ import java.util.List;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.TabHost;
 
 import MyFitness.KeyValueList;
@@ -37,6 +39,9 @@ import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.TextView;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -47,6 +52,7 @@ public class PhotoActivity extends AppCompatActivity {
     private TabItem galleryTI;
     private TabHost tab;
     private Activity mActivity;
+    private DBHelper db;
 
     private static final String PHOTOS_KEY = "easy_image_photos_list";
 
@@ -56,13 +62,12 @@ public class PhotoActivity extends AppCompatActivity {
     private ImagesAdapter imagesAdapter;
 
     private ArrayList<File> photos = new ArrayList<>();
+    private GridLayout grLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
         Nammu.init(this);
@@ -92,17 +97,12 @@ public class PhotoActivity extends AppCompatActivity {
         }
 
         EasyImage.configuration(this)
-                .setImagesFolderName("My app images") //images folder name, default is "EasyImage"
-                //.saveInAppExternalFilesDir() //if you want to use root internal memory for storying images
-                //.saveInRootPicturesDirectory() //if you want to use internal memory for storying images - default
+                .setImagesFolderName("My app images")
                 .setAllowMultiplePickInGallery(true);
-
-        /*EasyImage.configuration(this)
-                .setImagesFolderName("EasyImage sample")
-                .setCopyTakenPhotosToPublicGalleryAppFolder(true)
-                .setCopyPickedImagesToPublicGalleryAppFolder(true)
-                .setAllowMultiplePickInGallery(true);*/
         mActivity = this;
+
+        init();
+
     }
 
 
@@ -154,47 +154,29 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     public void init(){
-        photoTI = (TabItem) findViewById(R.id.photoTab);
-        galleryTI = (TabItem) findViewById(R.id.galleryTab);
+        db = new DBHelper(this);
+        int uqId;
+        ImageView targetImageView = null;
+        grLayout = (GridLayout) findViewById(R.id.gridLayout1);
 
-        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        /*PhotoFragment pFragment = new PhotoFragment();
-        fragmentTransaction.add(R.id.constraintLayout3, pFragment);
-        fragmentTransaction.commit();*/
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        //tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int tabViewId = tab.getCustomView().getId();
-                if(tabViewId == photoTI.getId()){
-                    //EasyImage.openCamera(mActivity, 0);
-                    //dispatchTakePictureIntent();
-                    //galleryAddPic();
-                    //FragmentManager.findFragmentById(R.id.photoFrgt1);
-                    /*FragmentManager fragmentManager = getSupportFragmentManager();
-                    Fragment pFragment = new PhotoFragment();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.photoFrgt1, pFragment);
-                    fragmentTransaction.commit();*/
-
-
-
+        if(photos.size() > 0 ) {
+            for (int i = 0; i < photos.size(); i++) {
+                File imgFile = new File(photos.get(i).toString());
+                if (imgFile.exists()) {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    targetImageView = new ImageView(this);
+                    uqId = db.addUniqueId(db.dbMyFitness);
+                    targetImageView.setId(uqId);
+                    targetImageView.setImageBitmap(myBitmap);
                 }
-                else if (tabViewId == galleryTI.getId()){
-                    //EasyImage.openChooserWithGallery(mActivity, "Pick source", 0);
-                }
+                grLayout.addView(targetImageView);
             }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-
+        }
+        else{
+            TextView txtView = new TextView(this);
+            txtView.setText("Выберите фото ДТП");
+            grLayout.addView(txtView);
+        }
     }
 
     @Override

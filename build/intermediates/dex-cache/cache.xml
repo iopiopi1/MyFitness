@@ -2,13 +2,13 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/8244c5035b14b27c9c937731a0b6d6b75f0ffe6c/output/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_9f3eeafd627ba2a09278bf94ad9570d60fe0f07d/classes.dex" />
+        sha1="3303ed8e4a5edeee87a550df658c26174a3bd546">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_5023ba9c237e1a8c32e5628f336bc159e1b99767.jar" />
     </item>
     <item
         is-multidex="true"
@@ -18,6 +18,87 @@
         revision="25.0.2"
         sha1="62ac1c71d9188061954f3f889704eacb4c6dfcd5">
         <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f4b093e35ba77e658ce3d8939a33d00c1d83472f/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/e70875ac6d704a41e80a3f98bbc49a6e3e02172e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="76182d2ede06926e942e5a947a130b915b83a489">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_d06b6464c95e71d40009ffe08acf852ec84a155e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/picasso-2.5.2_19c416de5e3cffef699857d06cf4aab4fd5b8521.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/abc4138c6fc09ff783679ce94ebcb7e9eb4f082f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="689f46db059da36c68705bb3cf9fe67a130daf6a">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_31918cd140d4a5c8e9f0204ff2896df08bb65e0e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.0.0-RC1/84c524dcd1a3088edd5560a8ac176eae1317f770/annotations-4.0.0-RC1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="84c524dcd1a3088edd5560a8ac176eae1317f770">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/annotations-4.0.0-RC1_18bd32e1ba71e4ff9ac9091045b2e81a8e008cfa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.0.0-RC1/1b4bba8f8d3df8db064c875c043c01e9ca3cdee9/disklrucache-4.0.0-RC1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1b4bba8f8d3df8db064c875c043c01e9ca3cdee9">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/disklrucache-4.0.0-RC1_87529af130f6ec37a4c1074001ed8135ba488a2f.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_9f3eeafd627ba2a09278bf94ad9570d60fe0f07d/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.0.0-RC1/7baec7d5132e7343100a99630a56a6584a33addc/glide-4.0.0-RC1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7baec7d5132e7343100a99630a56a6584a33addc">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/glide-4.0.0-RC1_650b144f306bffbca7295a9cc812929bb923f9fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.0.0-RC1/c425e31eda1069f978a0e823ad50e567ab422656/gifdecoder-4.0.0-RC1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c425e31eda1069f978a0e823ad50e567ab422656">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/gifdecoder-4.0.0-RC1_0824fcb223d4abb9cce2f073da5b3e75f7dc8fd2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/butterknife-7.0.1_68b5c16a5d41bc2b3ce48ebffe66254f4cd112f1.jar" />
     </item>
 
 </items>

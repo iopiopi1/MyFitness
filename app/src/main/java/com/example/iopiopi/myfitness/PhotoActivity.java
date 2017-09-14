@@ -53,6 +53,8 @@ public class PhotoActivity extends AppCompatActivity {
     private TabHost tab;
     private Activity mActivity;
     private DBHelper db;
+    private int photosSpanId;
+    private TextView photosSpanTextView;
 
     private static final String PHOTOS_KEY = "easy_image_photos_list";
 
@@ -154,29 +156,8 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     public void init(){
-        db = new DBHelper(this);
-        int uqId;
-        ImageView targetImageView = null;
-        grLayout = (GridLayout) findViewById(R.id.gridLayout1);
-
-        if(photos.size() > 0 ) {
-            for (int i = 0; i < photos.size(); i++) {
-                File imgFile = new File(photos.get(i).toString());
-                if (imgFile.exists()) {
-                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                    targetImageView = new ImageView(this);
-                    uqId = db.addUniqueId(db.dbMyFitness);
-                    targetImageView.setId(uqId);
-                    targetImageView.setImageBitmap(myBitmap);
-                }
-                grLayout.addView(targetImageView);
-            }
-        }
-        else{
-            TextView txtView = new TextView(this);
-            txtView.setText("Выберите фото ДТП");
-            grLayout.addView(txtView);
-        }
+        photosSpanId = 0;
+        reloadPhotos();
     }
 
     @Override
@@ -194,6 +175,7 @@ public class PhotoActivity extends AppCompatActivity {
     @OnClick(R.id.camera_button)
     protected void onTakePhotoClicked() {
         EasyImage.openCamera(this, 0);
+
     }
 
     //@OnClick(R.id.documents_button)
@@ -223,6 +205,7 @@ public class PhotoActivity extends AppCompatActivity {
     @OnClick(R.id.chooser_button2)
     protected void onChooserWithGalleryClicked() {
         EasyImage.openChooserWithGallery(this, "Pick source", 0);
+
     }
 
     @OnClick(R.id.sendImagesBt)
@@ -253,6 +236,7 @@ public class PhotoActivity extends AppCompatActivity {
         photos.addAll(returnedPhotos);
         imagesAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(photos.size() - 1);
+        reloadPhotos();
     }
 
     @Override
@@ -262,5 +246,70 @@ public class PhotoActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    public void reloadPhotos() {
+        db = new DBHelper(this);
+        int uqId;
+        ImageView targetImageView = null;
+        grLayout = (GridLayout) findViewById(R.id.gridLayout1);
 
+        if(photos.size() > 0 ) {
+            //photosSpanTextView.setVisibility(View.INVISIBLE);
+            for (int i = 0; i < 8/*photos.size()*/; i++) {
+                File imgFile = new File(photos.get(i).toString());
+                if (imgFile.exists()) {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    targetImageView = new ImageView(this);
+                    //uqId = db.addUniqueId(db.dbMyFitness);
+                    //targetImageView.setId(uqId);
+                    //targetImageView.setImageBitmap(myBitmap);
+                    switch (i) {
+                        case 0:
+                            targetImageView = (ImageView) findViewById(R.id.imageView11);
+                            break;
+                        case 1:
+                            targetImageView = (ImageView) findViewById(R.id.imageView12);
+                            break;
+                        case 2:
+                            targetImageView = (ImageView) findViewById(R.id.imageView13);
+                            break;
+                        case 3:
+                            targetImageView = (ImageView) findViewById(R.id.imageView14);
+                            break;
+                        case 4:
+                            targetImageView = (ImageView) findViewById(R.id.imageView15);
+                            break;
+                        case 5:
+                            targetImageView = (ImageView) findViewById(R.id.imageView16);
+                            break;
+                        case 6:
+                            targetImageView = (ImageView) findViewById(R.id.imageView17);
+                            break;
+                        case 7:
+                            targetImageView = (ImageView) findViewById(R.id.imageView18);
+                            break;
+                        case 8:
+                            targetImageView = (ImageView) findViewById(R.id.imageView19);
+                            break;
+                    }
+                    targetImageView.setImageBitmap(myBitmap);
+                    targetImageView.invalidate();
+                }
+                //grLayout.getLayoutParams().width = 1;
+                //grLayout.addView(targetImageView);
+            }
+        }
+        else{
+            /*if(photosSpanId == 0) {
+                photosSpanId = db.addUniqueId(db.dbMyFitness);
+                photosSpanTextView = new TextView(this);
+                photosSpanTextView.setId(photosSpanId);
+                photosSpanTextView.setText("Выберите фото ДТП");
+                grLayout.addView(photosSpanTextView);
+            }
+            else{
+                photosSpanTextView.setVisibility(View.VISIBLE);
+            }*/
+        }
     }
+
+}

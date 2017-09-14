@@ -87,6 +87,9 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
             connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
 
             for (int i=0; i < photos.size(); i++) {
+                if(i == 9){
+                    break;
+                }
                 //File file = new File(filepath);
                 File file = photos.get(i);
                 FileInputStream fileInputStream = new FileInputStream(file);

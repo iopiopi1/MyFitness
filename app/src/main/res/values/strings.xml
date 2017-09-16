@@ -22,5 +22,8 @@
         <item>Поиск Регномера</item>
         <item>Добавить фото ДТП</item>
     </string-array>
-
+    <string-array name="menuAppItemIcons">
+        <item>@drawable/pressure</item>
+        <item>@drawable/scale</item>
+    </string-array>
 </resources>

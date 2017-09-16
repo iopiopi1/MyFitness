@@ -26,7 +26,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.widget.ListView;
 import android.content.res.Configuration;
 import android.widget.TextView;
-
+import 	android.content.Context;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONObject;
@@ -34,8 +34,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import android.view.ViewGroup.LayoutParams;
 import android.util.Log;
-
+import 	android.view.ViewGroup;
 import MyFitness.KeyValueList;
+import 	android.view.LayoutInflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,18 +56,20 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
     private String[] menuAppItemTitles;
+    private String[] menuAppItemIcons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainActivity = this;
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setIcon(R.drawable.logo);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo);
 
         init();
         checkCurUser();
@@ -83,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 searchRegnum(cardamUrlSearchRegnumCurrent);
             }
         });
+        //drawer
+        initLeftDrawer();
 
     }
 
@@ -93,6 +98,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    /* Called whenever we call invalidateOptionsMenu() */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public void setTitle(CharSequence title) {
@@ -141,17 +155,34 @@ public class MainActivity extends AppCompatActivity {
         //db.deleteDatabase();
 
 
-        //drawer
-        initLeftDrawer();
     }
 
     public void initLeftDrawer(){
         menuAppItemTitles = getResources().getStringArray(R.array.menuAppItemTitles);
+        menuAppItemIcons = getResources().getStringArray(R.array.menuAppItemIcons);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, R.id.textView, menuAppItemTitles));
+        mDrawerList.setAdapter(
+            new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item,
+                R.id.textView,
+                menuAppItemTitles)
+           {
+               @Override
+               public View getView(int position, View convertView, ViewGroup parent) {
+                   LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                   View rowView = inflater.inflate(R.layout.drawer_list_item, parent, false);
+                   TextView textView = (TextView) rowView.findViewById(R.id.textView);
+                   ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+                   textView.setText(menuAppItemTitles[position]);
+                   if(position == 0){imageView.setImageResource(R.drawable.pressure);}
+                   if(position == 1){imageView.setImageResource(R.drawable.scale);}
+                   return rowView;
+               }
+           }
+        );
+
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -160,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
+                //R.drawable.pressure,
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
         )
@@ -179,13 +211,37 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 //getActionBar().setTitle(mDrawerTitle);
+                mDrawerList.bringToFront();
+                mDrawerLayout.requestLayout();
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
+
+
         };
 
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+
+    }
+
+
+    private void selectItem(int position) {
+        String category;
+
+        if(position == 0){
+            String ActivityName = this.getClass().getSimpleName();
+            if(!ActivityName.equals("MainActivity")){
+                finish();
+            }
+        }
+        if(position == 1){
+            Intent intent = new Intent(this, PhotoActivity.class);
+            startActivityForResult(intent, 1);
+        }
+        mDrawerLayout.closeDrawer(mDrawerList);
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -195,20 +251,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void selectItem(int position) {
-        mDrawerLayout.closeDrawer(mDrawerList);
-        String category;
-        if(position == 0){
-            if(this.getClass().getSimpleName() != "MainActivity"){
-                finish();
-            }
-        }
-        if(position == 1){
-            Intent intent = new Intent(this, PhotoActivity.class);
-            startActivityForResult(intent, 1);
-        }
-
-    }
 
     public void checkCurUser(){
         postParams = db.getCurUser(db.dbMyFitness);

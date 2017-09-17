@@ -36,6 +36,7 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
     private DBHelper db;
     private LinearLayout rlSearch;
     private ArrayList<ImageView> images;
+    private ArrayList<TextView> titles;
     private Activity parActivity;
     private int curType;
 
@@ -65,6 +66,7 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
         images = imgs;
         parActivity = act;
         curType = type;
+        titles = new ArrayList<TextView>();
     }
 
     @Override
@@ -90,6 +92,7 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
                 for (int i = 0; i < vehicles.length(); i++) {
                     JSONObject jsonobject = vehicles.getJSONObject(i);
                     String url = jsonobject.getString("imagePath");
+
                     final int curRegnumId = jsonobject.getInt("vehicleId");
                     ImageView targetImageView = new ImageView(mContext);
                     uqId = db.addUniqueId(db.dbMyFitness);
@@ -108,6 +111,14 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
                             .with(mContext)
                             .load(cardamUrl + "/" + url)
                             .into(targetImageView);
+
+                    String regnum = jsonobject.getString("regnum");
+                    TextView txtRegnum = new TextView(mContext);
+                    uqId = db.addUniqueId(db.dbMyFitness);
+                    txtRegnum.setId(uqId);
+                    txtRegnum.setText(regnum);
+                    titles.add(txtRegnum);
+                    rlSearch.addView(txtRegnum);
                     rlSearch.addView(targetImageView);
                 }
             } catch (JSONException e) {
@@ -192,6 +203,14 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
         }
 
         return respond;
+    }
+
+    public ArrayList<ImageView> getImages(){
+        return images;
+    }
+
+    public ArrayList<TextView> getTitles(){
+        return titles;
     }
 
 }

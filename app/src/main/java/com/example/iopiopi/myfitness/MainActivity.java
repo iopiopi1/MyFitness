@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public JSONObject jsonRespSearchVehicle;
     public LinearLayout rlSearch;
     public ArrayList<ImageView> images;
+    public ArrayList<TextView> titles;
     public DBHelper db;
     public Activity mainActivity;
     private List<KeyValueList> postParams;
@@ -142,8 +143,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void searchRegnum(String regnumURL){
+        if(images.size() > 0){
+            for(int i = 0; i < images.size(); i++){
+                rlSearch.removeView(images.get(i));
+                rlSearch.removeView(titles.get(i));
+            }
+        }
         JsonTask jt = new JsonTask(this, db, regnumURL, images, rlSearch, mainActivity, JsonTask.MULTTYPE);
         jt.execute();
+        images = jt.getImages();
+        titles = jt.getTitles();
     }
 
     public void init(){

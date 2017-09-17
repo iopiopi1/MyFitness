@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private String[] menuAppItemTitles;
     private String[] menuAppItemIcons;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.logo);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         init();
         checkCurUser();
@@ -129,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+            mDrawerLayout.openDrawer(mDrawerList);
+
             return true;
         }
         // Handle your other action bar items...
@@ -152,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
         rlSearch.setOrientation(LinearLayout.VERTICAL);
         images = new ArrayList<ImageView>();
         db = new DBHelper(this);
-        //db.deleteDatabase();
-
 
     }
 
@@ -222,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-
+        mDrawerToggle.syncState();
 
     }
 
@@ -240,8 +242,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PhotoActivity.class);
             startActivityForResult(intent, 1);
         }
-        mDrawerLayout.closeDrawer(mDrawerList);
+        if(position == 2){
+            db.deleteCurUser(db.dbMyFitness);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, 1);
+        }
 
+
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

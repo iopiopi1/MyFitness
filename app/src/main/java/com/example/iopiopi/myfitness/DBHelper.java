@@ -96,17 +96,31 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void addCurUser(SQLiteDatabase db, String login, String Pass) {
         //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
-        db.execSQL("DELETE FROM curUser");
+        //db.execSQL("DELETE FROM curUser");
         db.execSQL("INSERT INTO curUser (authLogin , authPass , status ) VALUES('"+login+"','"+Pass+"','ACTIVE')");
     }
 
+
+    public void deleteCurUser(SQLiteDatabase db) {
+        //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
+        db.execSQL("DELETE FROM curUser");
+    }
+
     public List<KeyValueList> getCurUser(SQLiteDatabase db) {
+        String authLogin;
+        String authPass;
         //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
         String SQLquery = "SELECT authLogin , authPass , status FROM curUser";
         Cursor cur = db.rawQuery(SQLquery, null);
         cur.moveToFirst();
-        String authLogin = cur.getString(0);
-        String authPass = cur.getString(1);
+        if(cur.getCount() != 0) {
+            authLogin = cur.getString(0);
+            authPass = cur.getString(1);
+        }
+        else{
+            authLogin = " ";
+            authPass = " ";
+        }
         cur.close();
         postParams = new ArrayList<KeyValueList>();
         postParams.add(0, new KeyValueList("username", authLogin));

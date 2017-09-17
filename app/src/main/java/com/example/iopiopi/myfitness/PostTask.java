@@ -72,6 +72,7 @@ public class PostTask extends AsyncTask<String, String, String> {
             if(state.equals("success")){
                 if(type == PostTask.LOGINTYPE){
                     db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"));
+                    mActivity.finish();
                 }
                 if(type == PostTask.CHECKLOGINTYPE){
 

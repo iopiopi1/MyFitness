@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFitness</string>
+    <string name="app_name">Cardam</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_measurement">Add Measure</string>
     <string name="title_activity_date_picker">DatePickerActivity</string>
@@ -21,6 +21,7 @@
     <string-array name="menuAppItemTitles">
         <item>Поиск Регномера</item>
         <item>Добавить фото ДТП</item>
+        <item>Выйти</item>
     </string-array>
     <string-array name="menuAppItemIcons">
         <item>@drawable/pressure</item>

@@ -28,6 +28,12 @@ public class RegnumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         activity = this;
         setContentView(R.layout.activity_view_regnum);
         init();

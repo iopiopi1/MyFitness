@@ -35,6 +35,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+
         activity = this;
         context = getApplicationContext();
         init();
@@ -82,6 +88,11 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
 
     }
 

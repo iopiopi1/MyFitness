@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkCurUser(){
         postParams = db.getCurUser(db.dbMyFitness);
-        PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.constraintLayoutMain, PostTask.CHECKLOGINTYPE);
+        PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.CHECKLOGINTYPE);
         jt.execute();
     }
 

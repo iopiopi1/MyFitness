@@ -5,6 +5,7 @@
     android:id="@+id/user_Reg_Linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.iopiopi.myfitness.RegisterActivity"
     tools:showIn="@layout/activity_register">
@@ -62,8 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:text="Button"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
+        android:background="@color/colorButtonPrimary"
+        android:text="ОК"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regPassEt2" />
 </android.support.constraint.ConstraintLayout>

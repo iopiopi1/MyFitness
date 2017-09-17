@@ -118,8 +118,8 @@ public class DBHelper extends SQLiteOpenHelper {
             authPass = cur.getString(1);
         }
         else{
-            authLogin = " ";
-            authPass = " ";
+            authLogin = "Net takogo usera";
+            authPass = "Net takogo usera";
         }
         cur.close();
         postParams = new ArrayList<KeyValueList>();

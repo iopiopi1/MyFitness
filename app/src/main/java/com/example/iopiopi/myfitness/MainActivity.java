@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //toolbar.setNavigationIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
         checkCurUser();
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         searchBt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 regnumSearch = regnumTv.getText().toString();
-                regnumSearch = "c1";
+                //regnumSearch = "c1";
                 cardamUrlSearchRegnumCurrent = cardamUrlSearchRegnum + "/" + regnumSearch;
                 searchRegnum(cardamUrlSearchRegnumCurrent);
             }

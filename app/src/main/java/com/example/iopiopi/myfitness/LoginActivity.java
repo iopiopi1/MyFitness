@@ -35,10 +35,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         activity = this;
@@ -99,6 +100,10 @@ public class LoginActivity extends AppCompatActivity {
     public void init(){
         cardamUrl = getResources().getString(R.string.cardamUrl);
         cardamUrlCheckLogin = cardamUrl + getResources().getString(R.string.cardamUrlCheckLogin);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
 }

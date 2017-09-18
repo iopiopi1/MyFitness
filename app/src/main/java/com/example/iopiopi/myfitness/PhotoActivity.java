@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.provider.MediaStore;
@@ -42,6 +43,8 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -55,7 +58,8 @@ public class PhotoActivity extends AppCompatActivity {
     private DBHelper db;
     private int photosSpanId;
     private TextView photosSpanTextView;
-
+    private Menu menu;
+    private MenuItem itemForward;
     private static final String PHOTOS_KEY = "easy_image_photos_list";
 
     @Bind(R.id.recycler_view)
@@ -71,7 +75,10 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -110,6 +117,46 @@ public class PhotoActivity extends AppCompatActivity {
 
         init();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                PostFilesTask fileTask = new PostFilesTask("http://192.168.0.13:80/public/api/addimageajax",photos);
+                fileTask.execute();
+                Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
+                snackbar.show();
+                photos.clear();
+                reloadPhotos();
+                invalidateOptionsMenu();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    /* Called whenever we call invalidateOptionsMenu() */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(photos.size() > 0) {
+            menu.findItem(R.id.action_favorite).setVisible(true);
+        }
+        else{
+            menu.findItem(R.id.action_favorite).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
 
@@ -213,11 +260,10 @@ public class PhotoActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.sendImagesBt)
+    /*@OnClick(R.id.sendImagesBt)
     protected void onSendPicsToServer() {
-        PostFilesTask fileTask = new PostFilesTask("http://192.168.0.13:80/public/api/addimageajax",photos);
-        fileTask.execute();
-    }
+
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -241,6 +287,8 @@ public class PhotoActivity extends AppCompatActivity {
         photos.addAll(returnedPhotos);
         imagesAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(photos.size() - 1);
+        //menu.getItem(i).setVisible(false);
+        invalidateOptionsMenu();
         reloadPhotos();
     }
 
@@ -304,16 +352,33 @@ public class PhotoActivity extends AppCompatActivity {
             }
         }
         else{
-            /*if(photosSpanId == 0) {
-                photosSpanId = db.addUniqueId(db.dbMyFitness);
-                photosSpanTextView = new TextView(this);
-                photosSpanTextView.setId(photosSpanId);
-                photosSpanTextView.setText("Выберите фото ДТП");
-                grLayout.addView(photosSpanTextView);
-            }
-            else{
-                photosSpanTextView.setVisibility(View.VISIBLE);
-            }*/
+            targetImageView = (ImageView) findViewById(R.id.imageView11);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView12);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView13);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView14);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView15);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView16);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView17);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView17);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
+            targetImageView = (ImageView) findViewById(R.id.imageView18);
+            targetImageView.setImageResource(0);
+            targetImageView.invalidate();
         }
     }
 

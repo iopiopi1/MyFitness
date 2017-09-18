@@ -2,6 +2,7 @@ package com.example.iopiopi.myfitness;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.content.Intent;
@@ -28,14 +29,17 @@ public class RegnumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
+        setContentView(R.layout.activity_view_regnum);
 
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        activity = this;
-        setContentView(R.layout.activity_view_regnum);
         init();
         JsonTask jt = new JsonTask(this, db, cardamUrlViewRegnum, images, rlRegnum, activity, JsonTask.SINGLETYPE);
         jt.execute();

@@ -34,8 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,12 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
             String regPassStr1 = regPassEt1.getText().toString();
             String regPassStr2 = regPassEt2.getText().toString();
             public void onClick(View v) {
-
-
-                regLoginStr = "pizduk";
-                regEmailStr = "kiddybenny@gmail.com";
-                regPassStr1 = "123321";
-                regPassStr2 = "123321";
 
                 if(regLoginStr.length() < 2 || regEmailStr.length() < 2 ||
                 regPassStr1.length() < 2 || regPassStr2.length() < 2    ){

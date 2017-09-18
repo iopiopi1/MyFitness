@@ -32,6 +32,8 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
     private String URL;
     private List<File> imgs;
     private Map<String, String> postParams;
+    private JSONObject resultJSON;
+    private String result;
 
     public PostFilesTask(String sendUrl, List<File> photos) {
         URL = sendUrl;
@@ -163,12 +165,14 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String strings) {
         super.onPostExecute(strings);
-        int i = 1;
-        /*try {
+        try {
+            resultJSON = new JSONObject(strings);
+            result = resultJSON.getString("status");
+
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
 
     }
 
@@ -191,6 +195,9 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
             }
         }
         return sb.toString();
+    }
+    private String getStatuss() {
+        return result;
     }
 
 }

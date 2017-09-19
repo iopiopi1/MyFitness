@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cardamUrl">http://192.168.0.13:80</string>
-    <string name="cardamUrlSearchRegnum">/public/api/searchvehicle</string>
-    <string name="cardamUrlViewRegnum">/public/api/getvehicle</string>
-    <string name="cardamUrlCheckLogin">/public/user/checklogin</string>
-    <string name="cardamUrlRestoreEmail">/public/user/restorepassword</string>
-    <string name="cardamUrlRegister">/public/user/registerajax</string>
-    <string name="cardamUrlImageUpoad">/public/api/addimageajax</string>
+    <string name="cardamUrl">http://cardam.ru</string><!--192.168.0.13:80-->
+    <string name="cardamUrlSearchRegnum">/api/searchvehicle</string><!--/public/api/searchvehicle-->
+    <string name="cardamUrlViewRegnum">/api/getvehicle</string><!--/public/api/getvehicle-->
+    <string name="cardamUrlCheckLogin">/user/checklogin</string><!--/public/user/checklogin-->
+    <string name="cardamUrlRestoreEmail">/user/restorepassword</string><!--/public/user/restorepassword-->
+    <string name="cardamUrlRegister">/user/registerajax</string><!--/public/user/registerajax-->
+    <string name="cardamUrlImageUpoad">/api/addimageajax</string><!--/public/api/addimageajax-->
 </resources>

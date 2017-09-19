@@ -3,6 +3,7 @@ package com.example.iopiopi.myfitness;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -58,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private String[] menuAppItemTitles;
     private String[] menuAppItemIcons;
-
+    private Snackbar snackbarWrongSearchRegnum;
+    private Snackbar snackbarEmptySearchRes;
 
 
     @Override
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 regnumSearch = regnumTv.getText().toString();
                 //regnumSearch = "c1";
                 cardamUrlSearchRegnumCurrent = cardamUrlSearchRegnum + "/" + regnumSearch;
-                searchRegnum(cardamUrlSearchRegnumCurrent);
+                searchRegnum(cardamUrlSearchRegnumCurrent, regnumSearch);
             }
         });
         //drawer
@@ -144,8 +147,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void searchRegnum(String regnumURL){
-        if(images.size() > 0){
+    public void searchRegnum(String regnumURL, String regnum){
+        String pattern = "[ABEHKMOPCTYXabehkmopctyx]\\d{3}[ABEHKMOPCTYXabehkmopctyx]{2}\\d{2,3}|[АВЕКМНОРСТУХавекмнорстух]\\d{3}[АВЕКМНОРСТУХавекмнорстух]{2}\\d{2,3}";
+        boolean isMatched = Pattern.matches(pattern, regnum);
+
+        if(!isMatched){
+            snackbarWrongSearchRegnum.show();
+
+            return;
+        }
+        else{
+            if(snackbarWrongSearchRegnum.isShown()){
+                snackbarWrongSearchRegnum.dismiss();
+            }
+        }
+
+        if(images.size() > 0 ){
             for(int i = 0; i < images.size(); i++){
                 rlSearch.removeView(images.get(i));
                 rlSearch.removeView(titles.get(i));
@@ -158,8 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void init(){
-        //Intent intent = new Intent(this, PhotoActivity.class);
-        //startActivityForResult(intent, 1);
+        snackbarWrongSearchRegnum = Snackbar.make(findViewById(R.id.CoordinatorLayout), R.string.search_wrong_regnum, Snackbar.LENGTH_INDEFINITE);
         cardamUrl = getResources().getString(R.string.cardamUrl);//"http://192.168.0.13:80";
         cardamUrlSearchRegnum = cardamUrl + getResources().getString(R.string.cardamUrlSearchRegnum);//cardamUrl + "/public/api/searchvehicle";
         cardamUrlCheckLogin = cardamUrl + getResources().getString(R.string.cardamUrlCheckLogin);
@@ -189,8 +205,9 @@ public class MainActivity extends AppCompatActivity {
                    TextView textView = (TextView) rowView.findViewById(R.id.textView);
                    ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
                    textView.setText(menuAppItemTitles[position]);
-                   if(position == 0){imageView.setImageResource(R.drawable.pressure);}
-                   if(position == 1){imageView.setImageResource(R.drawable.scale);}
+                   if(position == 0){imageView.setImageResource(R.drawable.ic_search);}
+                   if(position == 1){imageView.setImageResource(R.drawable.ic_add_pic);}
+                   if(position == 2){imageView.setImageResource(0);}
                    return rowView;
                }
            }
@@ -270,6 +287,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public Snackbar getSnackbar(String name){
+        Snackbar sn = null;
+        switch(name) {
+            case "snackbarWrongSearchRegnum":
+                sn = snackbarWrongSearchRegnum;
+                break;
+            case "snackbarEmptySearchRes":
+                sn = snackbarEmptySearchRes;
+                break;
+
+        }
+        return sn;
+    }
 
     public void checkCurUser(){
         postParams = db.getCurUser(db.dbMyFitness);

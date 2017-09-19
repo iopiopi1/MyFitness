@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import android.widget.LinearLayout;
 import android.view.View;
 import com.bumptech.glide.Glide;
 import android.content.Intent;
+import android.view.ViewGroup.LayoutParams;
+import android.graphics.Typeface;
 
 /**
  * Created by root on 7/20/17.
@@ -117,9 +121,19 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
                     uqId = db.addUniqueId(db.dbMyFitness);
                     txtRegnum.setId(uqId);
                     txtRegnum.setText(regnum);
+                    txtRegnum.setTextSize(17);//setTextColor();
+                    txtRegnum.setTypeface(null, Typeface.BOLD);
+                    LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                    llp.setMargins(140, 0, 0, 0);
+                    txtRegnum.setLayoutParams(llp);
+                    //txtRegnum.setLayoutParams();
                     titles.add(txtRegnum);
                     rlSearch.addView(txtRegnum);
                     rlSearch.addView(targetImageView);
+                }
+                if(vehicles.length() == 0){
+                    Snackbar snackbarEmptySearchRes = Snackbar.make(parActivity.findViewById(R.id.CoordinatorLayout), R.string.snackbarEmptySearchRes, Snackbar.LENGTH_LONG);;
+                    snackbarEmptySearchRes.show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

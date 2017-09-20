@@ -1,5 +1,6 @@
 package com.example.iopiopi.myfitness;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -34,18 +35,20 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
     private Map<String, String> postParams;
     private JSONObject resultJSON;
     private String result;
+    private DBHelper db;
+    private Context parActivity;
 
-    public PostFilesTask(String sendUrl, List<File> photos) {
+    public PostFilesTask(String sendUrl, List<File> photos, Context mActivity) {
         URL = sendUrl;
         imgs = photos;
-
-        /*postParams = new ArrayList<KeyValueList>();
-        postParams.add(0, new KeyValueList("vehicle_uid", null));
-        postParams.add(1, new KeyValueList("vehicle_id", null));*/
+        parActivity = mActivity;
+        db = new DBHelper(parActivity);
+        int userId = db.getCurUserId(db.dbMyFitness);
 
         postParams = new HashMap<String, String>();
         postParams.put("vehicle_id", "");
         postParams.put("vehicle_uid", "");
+        postParams.put("userId", Integer.toString(userId));
     }
 
 

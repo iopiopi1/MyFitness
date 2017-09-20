@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mainActivity = this;
 
 
@@ -183,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         rlSearch.setOrientation(LinearLayout.VERTICAL);
         images = new ArrayList<ImageView>();
         db = new DBHelper(this);
-
+        //db.deleteDatabase();
     }
 
     public void initLeftDrawer(){
@@ -303,8 +304,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkCurUser(){
         postParams = db.getCurUser(db.dbMyFitness);
-        PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.CHECKLOGINTYPE);
-        jt.execute();
+        //String isOld =
+        KeyValueList isOld = postParams.get(2);//.toString().equals("yes");
+        String isOldString = isOld.getValue();
+        if(isOldString.equals("yes")) {
+            PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.LOGINTYPE);
+            jt.execute();
+        }
     }
 
 }

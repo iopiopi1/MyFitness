@@ -71,8 +71,17 @@ public class PostTask extends AsyncTask<String, String, String> {
             String state = postRespond.getString("state");
             if(state.equals("success")){
                 if(type == PostTask.LOGINTYPE){
-                    db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"));
-                    mActivity.finish();
+                    if(!postDataParams.getString("isOld").equals("yes")) {
+                        db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postRespond.getInt("id"));
+                        List<KeyValueList> postParams = db.getCurUser(db.dbMyFitness);
+                        int i = 1;
+                        mActivity.finish();
+                    }
+                    else{
+                        Intent intent = new Intent(mActivity, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        mActivity.startActivityForResult(intent, 1);
+                    }
                 }
                 if(type == PostTask.CHECKLOGINTYPE){
 
@@ -93,6 +102,7 @@ public class PostTask extends AsyncTask<String, String, String> {
                 }
                 if(type == PostTask.CHECKLOGINTYPE){
                     Intent intent = new Intent(mActivity, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     mActivity.startActivityForResult(intent, 1);
                 }
                 if(type == PostTask.REGTYPE){
@@ -190,7 +200,7 @@ public class PostTask extends AsyncTask<String, String, String> {
 
     public void setCurUserDB(JSONObject postDataParams){
         try {
-            db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"));
+            db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postDataParams.getInt("id"));
         }
     catch (JSONException e) {
         e.printStackTrace();

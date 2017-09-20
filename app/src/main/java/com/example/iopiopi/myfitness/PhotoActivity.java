@@ -128,9 +128,11 @@ public class PhotoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        String cardamUrl = getResources().getString(R.string.cardamUrl);
+        cardamUrl = cardamUrl + getResources().getString(R.string.cardamUrlImageUpoad);
         switch (item.getItemId()) {
             case R.id.action_favorite:
-                PostFilesTask fileTask = new PostFilesTask("http://192.168.0.13:80/public/api/addimageajax",photos);
+                PostFilesTask fileTask = new PostFilesTask(cardamUrl, photos, mActivity);
                 fileTask.execute();
                 Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
                 snackbar.show();

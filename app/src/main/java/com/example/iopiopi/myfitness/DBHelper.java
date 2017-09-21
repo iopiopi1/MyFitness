@@ -159,7 +159,7 @@ public class DBHelper extends SQLiteOpenHelper {
         postParams = new ArrayList<KeyValueList>();
         postParams.add(0, new KeyValueList("username", authLogin));
         postParams.add(1, new KeyValueList("password", authPass));
-        postParams.add(2, new KeyValueList("isOld", "yes"));
+        postParams.add(2, new KeyValueList("isOld", isOld));
 
         return postParams;
 

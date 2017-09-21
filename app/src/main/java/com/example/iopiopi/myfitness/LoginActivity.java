@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 postParams = new ArrayList<KeyValueList>();
                 postParams.add(0, new KeyValueList("username", loginNameStr));
                 postParams.add(1, new KeyValueList("password", loginPassStr));
+                postParams.add(2, new KeyValueList("isOld", "no"));
                 PostTask jt = new PostTask(cardamUrlCheckLogin, activity, postParams, R.id.cont_login_LinearL, PostTask.LOGINTYPE);
                 jt.execute();
 

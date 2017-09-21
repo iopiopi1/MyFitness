@@ -133,7 +133,26 @@ public class PhotoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 PostFilesTask fileTask = new PostFilesTask(cardamUrl, photos, mActivity);
-                fileTask.execute();
+
+                int count = 0;
+                int maxTries = 5;
+                String resultMessage = null;
+                while(true) {
+                    try {
+                        fileTask.execute();
+                        if(fileTask.getStatuss().equals("Executed")){
+                            resultMessage = getResources().getString(R.string.photos_success_upload);
+                            break;
+                        }
+                    } catch (Exception e) {
+                        // handle exception
+                        if (++count == maxTries) {
+                            resultMessage = getResources().getString(R.string.photos_nonsuccess_upload);
+                            break;
+                        };
+                    }
+                }
+
                 Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
                 snackbar.show();
                 photos.clear();

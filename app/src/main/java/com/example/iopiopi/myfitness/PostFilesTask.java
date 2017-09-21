@@ -37,6 +37,7 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
     private String result;
     private DBHelper db;
     private Context parActivity;
+    private String status;
 
     public PostFilesTask(String sendUrl, List<File> photos, Context mActivity) {
         URL = sendUrl;
@@ -44,6 +45,7 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
         parActivity = mActivity;
         db = new DBHelper(parActivity);
         int userId = db.getCurUserId(db.dbMyFitness);
+        status = "Not executed";
 
         postParams = new HashMap<String, String>();
         postParams.put("vehicle_id", "");
@@ -57,6 +59,7 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
 
         String result = multipartRequest(URL, postParams, imgs, "files[f]", "image/jpeg");
 
+        status = "Executed";
         return result;
     }
 
@@ -199,8 +202,9 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
         }
         return sb.toString();
     }
-    private String getStatuss() {
-        return result;
+    public String getStatuss() {
+        return status;
     }
+
 
 }

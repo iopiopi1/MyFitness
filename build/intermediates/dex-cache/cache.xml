@@ -2,166 +2,148 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/26.1.0/814258103cf26a15fcc26ecce35f5b7d24b73f8/support-annotations-26.1.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0814258103cf26a15fcc26ecce35f5b7d24b73f8">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-26.1.0_14cb748d3aa08befbc4adf12e965c84091cb5162/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/6a7de60fdd85cd42c16a1994be9b3be0b702bb3c/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_31722f34ffa2826d7705246b30dc1de89e6b3efc/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.0/e414a4cb28434e25c4f6aa71426eb20cf4874ae9/common-1.0.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e414a4cb28434e25c4f6aa71426eb20cf4874ae9">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/common-1.0.0_6c4c5849f69aad962601a44a48bfee456c5de44f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="bdf4b84694a22a49219cd429efc905140a212d47">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f4b093e35ba77e658ce3d8939a33d00c1d83472f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="/home/iopiopi/.android/build-cache/284edb5ec77ab9a7db003c23a8eaec69f39c6ea8/output/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="233f60a165ae622c8b36731502ebbda0f65e1930">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6c144d2c5de75f2ef51fab793ce3e324395f0588/classes.dex" />
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_6c144d2c5de75f2ef51fab793ce3e324395f0588.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/f0eca099d6e8c95dc9a639cff05a5628ed7bed5c/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="f428e2fbc9ed0b297e3a3f420e51e6982f66822d">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9507fdb960cabc55b8e34a359cf205a3dd274080/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="/home/iopiopi/.android/build-cache/f5f71703f500f5632ea4239b8fa5453c01d1b23d/output/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="508f50705b4fde51a16259f29c854201a3044516">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5af7a79258bf426eae3a43771c5bfca9c0d70f4d/classes.dex" />
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_5af7a79258bf426eae3a43771c5bfca9c0d70f4d.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/6afdb8ed9a191a2aafd60b8af000b0e22f759ab8/output/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/26.1.0/814258103cf26a15fcc26ecce35f5b7d24b73f8/support-annotations-26.1.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="b62fdc4cfef174c1e456014195c83fa7de7dc041">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b7899cfe2cb492df46dc3fbc31175828e5d10b12/classes.dex" />
+        sha1="0814258103cf26a15fcc26ecce35f5b7d24b73f8">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/support-annotations-26.1.0_14cb748d3aa08befbc4adf12e965c84091cb5162.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/9196f7bb452fbf28050e8a5421a234762fa03781/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6f4138a4e065826cb044d49faea4cfd7191773d1">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7023fe247d3360c48fc14342e12f947776641e95/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/1c3da1f68183c633abf83298d4592230fd4278e1/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7efef32744ca4a436492d5cf28c08698cc2af256">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b794bb570a38d8ca743034b452768da0e1937fa4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/87aaf316eb5cc3fd942f8830c34c01e5e7ec4a76/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="58b12bdb21a84f22e0dc3b047aeceb0a546b1b44">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_dd8ac4b236e825d5c56a868b75832e783d8b4c7d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/6ae3a4a1f62ef2fdaefaf848c27883ebefb11f7e/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0b1f3607031aeb4002d69384ee8eb2fe28dd0177/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/d25e4e7174a8e2a3a821a2e39e26eabb0a7c92a9/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="2442771a5590dd4eb4bce00c2e9dca9e22e4c963">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1c3d367574bf94ae0f52f8f85978edfcbd102472/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="/home/iopiopi/.android/build-cache/c1c3da5b63059d4161275fa461f722402d656d9a/output/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="f97cf85b0fe70d37a705111dafa6b1b418ea1650">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_53435e09a5ffcdce27d621ab2adac6d5bc585da6/classes.dex" />
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_53435e09a5ffcdce27d621ab2adac6d5bc585da6.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_9f3eeafd627ba2a09278bf94ad9570d60fe0f07d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/e71ed449721ba717b244f1f70ca2a27d2a5ec09b/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="40392f30a601db5675cdf18192aab013d6fee6ec">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_867e0d8072f39e27f48c09b6b91f3ce75affee1d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iopiopi/.android/build-cache/467a08557c4ffac6787395158af53317ad8d042d/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a37fc31c5ceeaa4532a37358add1b189d8db4af1">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a0baffd7c28b499f174acb8d32722f123e395f53/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.0.0/a2d487452376193fc8c103dd2b9bd5f2b1b44563/common-1.0.0.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
-        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/common-1.0.0_df4df48b5582d469159d8bcb8f3ab76833c98226/classes.dex" />
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/common-1.0.0_df4df48b5582d469159d8bcb8f3ab76833c98226.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/d25e4e7174a8e2a3a821a2e39e26eabb0a7c92a9/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2442771a5590dd4eb4bce00c2e9dca9e22e4c963">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_1c3d367574bf94ae0f52f8f85978edfcbd102472.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/f0eca099d6e8c95dc9a639cff05a5628ed7bed5c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f428e2fbc9ed0b297e3a3f420e51e6982f66822d">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_9507fdb960cabc55b8e34a359cf205a3dd274080.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/6a7de60fdd85cd42c16a1994be9b3be0b702bb3c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_31722f34ffa2826d7705246b30dc1de89e6b3efc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/6ae3a4a1f62ef2fdaefaf848c27883ebefb11f7e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_0b1f3607031aeb4002d69384ee8eb2fe28dd0177.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.0/e414a4cb28434e25c4f6aa71426eb20cf4874ae9/common-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e414a4cb28434e25c4f6aa71426eb20cf4874ae9">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/common-1.0.0_6c4c5849f69aad962601a44a48bfee456c5de44f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/1c3da1f68183c633abf83298d4592230fd4278e1/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7efef32744ca4a436492d5cf28c08698cc2af256">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_b794bb570a38d8ca743034b452768da0e1937fa4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/6afdb8ed9a191a2aafd60b8af000b0e22f759ab8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b62fdc4cfef174c1e456014195c83fa7de7dc041">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_b7899cfe2cb492df46dc3fbc31175828e5d10b12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/9196f7bb452fbf28050e8a5421a234762fa03781/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6f4138a4e065826cb044d49faea4cfd7191773d1">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_7023fe247d3360c48fc14342e12f947776641e95.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/87aaf316eb5cc3fd942f8830c34c01e5e7ec4a76/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="58b12bdb21a84f22e0dc3b047aeceb0a546b1b44">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_dd8ac4b236e825d5c56a868b75832e783d8b4c7d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/e71ed449721ba717b244f1f70ca2a27d2a5ec09b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="40392f30a601db5675cdf18192aab013d6fee6ec">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_867e0d8072f39e27f48c09b6b91f3ce75affee1d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/iopiopi/.android/build-cache/467a08557c4ffac6787395158af53317ad8d042d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a37fc31c5ceeaa4532a37358add1b189d8db4af1">
+        <dex dex="/home/iopiopi/Documents/AndroidStudioProjects/MyFitness/app/build/intermediates/pre-dexed/debug/classes_a0baffd7c28b499f174acb8d32722f123e395f53.jar" />
     </item>
 
 </items>

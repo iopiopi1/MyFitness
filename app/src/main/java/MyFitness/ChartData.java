@@ -1,12 +1,5 @@
 package MyFitness;
 
-import com.example.iopiopi.myfitness.DBHelper;
-import android.content.Context;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-import java.text.ParseException;
-
 /**
  * Created by iopiopi on 4/30/17.
  */

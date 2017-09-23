@@ -4,11 +4,11 @@ android {
     compileSdkVersion 26
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.example.iopiopi.myfitness"
-        minSdkVersion 22
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        applicationId "cardam.cardam"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 3
+        versionName "2.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

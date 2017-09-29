@@ -11,6 +11,9 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_restore_pass">RestorePassActivity</string>
     <string name="snackbarLoginWrongInp">Пожалуйста, заполните все поля.</string>
+    <string name="snackbarPassEqualInp">Пароль-1 и Пароль-2 должны совпадать.</string>
+    <string name="snackbarUserRegSuccess">Спасибо, на указанный e-mail был выслана ссылка для активации аккаунта.</string>
+    <string name="snackbarUserRestoreSuccess">Спасибо, на указанный e-mail был выслан новый пароль.</string>
     <string name="snackbarUserMailWrong">Пожалуйста, заполните e-mail.</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_photo">PhotoActivity</string>

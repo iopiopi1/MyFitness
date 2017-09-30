@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -82,10 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
         searchBt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                regnumSearch = regnumTv.getText().toString();
-                //regnumSearch = "c1";
-                cardamUrlSearchRegnumCurrent = cardamUrlSearchRegnum + "/" + regnumSearch;
-                searchRegnum(cardamUrlSearchRegnumCurrent, regnumSearch);
+            View view = getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+            regnumSearch = regnumTv.getText().toString();
+            String regnumLatyn =  changeABC(regnumSearch);
+            //regnumSearch = "c1";
+            cardamUrlSearchRegnumCurrent = cardamUrlSearchRegnum + "/" + regnumLatyn;
+            searchRegnum(cardamUrlSearchRegnumCurrent, regnumSearch);
             }
         });
         //drawer
@@ -145,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         String pattern = "[ABEHKMOPCTYXabehkmopctyx]\\d{3}[ABEHKMOPCTYXabehkmopctyx]{2}\\d{2,3}|[АВЕКМНОРСТУХавекмнорстух]\\d{3}[АВЕКМНОРСТУХавекмнорстух]{2}\\d{2,3}";
         boolean isMatched = Pattern.matches(pattern, regnum);
 
+
         if(!isMatched){
             snackbarWrongSearchRegnum.show();
 
@@ -162,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 rlSearch.removeView(titles.get(i));
             }
         }
+
         JsonTask jt = new JsonTask(this, db, regnumURL, images, rlSearch, mainActivity, JsonTask.MULTTYPE);
         jt.execute();
         images = jt.getImages();
@@ -310,6 +319,87 @@ public class MainActivity extends AppCompatActivity {
             Button bt = (Button) findViewById(R.id.searchBt);
             bt.setVisibility(Button.VISIBLE);
         }
+    }
+
+    public String changeABC(String originalStr){
+        String changedABC = "";
+
+        for(int i = 0; i < originalStr.length(); i++){
+            changedABC = changedABC + getLatyn(originalStr.charAt(i));
+        }
+
+
+        return changedABC;
+    }
+
+    public char getLatyn(char originChar){
+
+        char latChar;
+        originChar = Character.toUpperCase(originChar);
+        Character cyrChar = new Character(originChar);
+        if(cyrChar.toString().equals("А")){
+            String str = "A";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("В")){
+            String str = "B";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("Е")){
+            String str = "E";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("Н")){
+            String str = "H";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("К")){
+            String str = "K";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("М")){
+            String str = "M";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("О")){
+            String str = "O";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("Р")){
+            String str = "P";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("С")){
+            String str = "C";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("Т")) {
+            String str = "T";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("У")){
+            String str = "Y";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+        if(cyrChar.toString().equals("Х")) {
+            String str = "X";
+            latChar = str.charAt(0);
+            return latChar;
+        }
+
+        latChar = originChar;
+        return latChar;
     }
 
 }

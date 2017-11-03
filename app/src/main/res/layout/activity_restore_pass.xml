@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cardam.cardam.RestorePassActivity">
+    tools:context="cardam.cardam2.RestorePassActivity">
 
     <include layout="@layout/appbar" />
     <include layout="@layout/content_restore_pass" />

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="cardam.cardam.LoginActivity"
+    tools:context="cardam.cardam2.LoginActivity"
     tools:showIn="@layout/activity_login2">
 
     <EditText

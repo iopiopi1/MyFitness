@@ -5,7 +5,8 @@
     android:id="@+id/csLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cardam.cardam2.SearchActivity">
+    android:background="@color/colorPrimary"
+    tools:context="cardam2.cardam2.SearchActivity">
 
     <include
         layout="@layout/appbar"
@@ -60,6 +61,7 @@
             android:layout_width="377dp"
             android:layout_height="429dp"
             android:layout_marginLeft="8dp"
+            android:background="@color/colorPrimary"
             android:fillViewport="false"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,9 +72,8 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            </LinearLayout>
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"></LinearLayout>
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
 

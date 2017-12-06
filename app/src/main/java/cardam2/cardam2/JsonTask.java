@@ -127,12 +127,13 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
                     llp.setMargins(140, 0, 0, 0);
                     txtRegnum.setLayoutParams(llp);
                     //txtRegnum.setLayoutParams();
+                    targetImageView.setBackgroundResource(R.color.colorPrimary);
                     titles.add(txtRegnum);
                     rlSearch.addView(txtRegnum);
                     rlSearch.addView(targetImageView);
                 }
                 if(vehicles.length() == 0){
-                    Snackbar snackbarEmptySearchRes = Snackbar.make(parActivity.findViewById(R.id.CoordinatorLayout), R.string.snackbarEmptySearchRes, Snackbar.LENGTH_LONG);;
+                    Snackbar snackbarEmptySearchRes = Snackbar.make(parActivity.findViewById(R.id.csLayout2), R.string.snackbarEmptySearchRes, Snackbar.LENGTH_LONG);;
                     snackbarEmptySearchRes.show();
                 }
             } catch (JSONException e) {

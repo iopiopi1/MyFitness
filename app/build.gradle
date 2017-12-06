@@ -7,8 +7,8 @@ android {
         applicationId "cardam2.cardam2"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -40,6 +40,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
     compile 'com.intellij:annotations:+@jar'
+    apply plugin: 'com.google.gms.google-services'
 }
 
 allprojects {

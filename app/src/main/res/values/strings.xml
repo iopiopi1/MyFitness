@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">CARDAM.RU</string>
-    <string name="app_name_descr">База поврежденных автомобилей</string>
+    <string name="app_name">CARDAM</string>
+    <string name="app_name_descr">База поврежденных авто</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_measurement">Add Measure</string>
     <string name="title_activity_date_picker">DatePickerActivity</string>
@@ -13,6 +13,7 @@
     <string name="title_activity_restore_pass">RestorePassActivity</string>
     <string name="snackbarLoginWrongInp">Пожалуйста, заполните все поля.</string>
     <string name="snackbarPassEqualInp">Пароль-1 и Пароль-2 должны совпадать.</string>
+    <string name="snackbarUserRegWrngEmail">Пожалуйста, введите email в формате example@site.ru</string>
     <string name="snackbarUserRegSuccess">Спасибо, на указанный e-mail был выслана ссылка для активации аккаунта.</string>
     <string name="snackbarUserRestoreSuccess">Спасибо, на указанный e-mail был выслан новый пароль.</string>
     <string name="snackbarUserMailWrong">Пожалуйста, заполните e-mail.</string>

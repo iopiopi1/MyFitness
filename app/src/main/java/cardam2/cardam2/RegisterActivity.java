@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import MyFitness.KeyValueList;
 import android.view.inputmethod.InputMethodManager;
@@ -57,6 +58,15 @@ public class RegisterActivity extends AppCompatActivity {
                 String regEmailStr = regEmailEt.getText().toString();
                 String regPassStr1 = regPassEt1.getText().toString();
                 String regPassStr2 = regPassEt2.getText().toString();
+
+
+                ;
+
+                if(!android.util.Patterns.EMAIL_ADDRESS.matcher(regEmailStr).matches()){
+                    Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.coordRegister), R.string.snackbarUserRegWrngEmail, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
                 if(!regPassStr1.equals(regPassStr2)){
                     snackbar = Snackbar.make(findViewById(viewId), R.string.snackbarPassEqualInp, Snackbar.LENGTH_SHORT);
                     snackbar.show();

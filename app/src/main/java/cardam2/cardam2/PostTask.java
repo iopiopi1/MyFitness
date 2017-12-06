@@ -81,8 +81,7 @@ public class PostTask extends AsyncTask<String, String, String> {
                     if(!status.equals("yes")) {
                         //db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postRespond.getInt("id"));
                         List<KeyValueList> postParams = db.getCurUser(db.dbMyFitness);
-                        int i = 1;
-                        mActivity.finish();
+                        //mActivity.finish();
                     }
                     else{
                         Intent intent = new Intent(mActivity, LoginActivity.class);
@@ -114,7 +113,11 @@ public class PostTask extends AsyncTask<String, String, String> {
                     snackbar.show();
                 }
                 if(type == PostTask.CHECKLOGINTYPE){
-                    if(!postDataParams.getString("isOld").equals("yes")) {
+                    String status = "";
+                    if(postRespond.has("passTime") && postDataParams.has("loggedTime")) {
+                        status = checkLoginStatus(postRespond.getString("passTime"), postDataParams.getString("loggedTime"));
+                    }
+                    if(!status.equals("yes")) {
                         snackbar.show();
                     }
                     Intent intent = new Intent(mActivity, LoginActivity.class);

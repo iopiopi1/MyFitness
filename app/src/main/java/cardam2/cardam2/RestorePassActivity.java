@@ -51,7 +51,7 @@ public class RestorePassActivity extends AppCompatActivity {
             }
             emailET = (EditText) findViewById(R.id.restoreEmailET);
             if(emailET.getText().length() < 2){
-                snackbar = Snackbar.make(findViewById(R.id.cont_login_LinearL), R.string.snackbarUserMailWrong, Snackbar.LENGTH_SHORT);
+                snackbar = Snackbar.make(findViewById(R.id.restorePassLayout), R.string.snackbarUserMailWrong, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
             else{

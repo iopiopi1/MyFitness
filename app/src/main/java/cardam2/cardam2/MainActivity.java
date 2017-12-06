@@ -143,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
         cardamUrl = getResources().getString(R.string.cardamUrl);//"http://192.168.0.13:80";
         db = new DBHelper(this);
         //db.deleteDatabase();
+        cardamUrlSearchRegnum = cardamUrl + getResources().getString(R.string.cardamUrlSearchRegnum);//cardamUrl + "/public/api/searchvehicle";
+        cardamUrlCheckLogin = cardamUrl + getResources().getString(R.string.cardamUrlCheckLogin);
     }
 
     public void initLeftDrawer(){
@@ -220,19 +222,17 @@ public class MainActivity extends AppCompatActivity {
         String category;
 
         if(position == 0){
-            String ActivityName = this.getClass().getSimpleName();
-            if(!ActivityName.equals("MainActivity")){
-                finish();
-            }
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivityForResult(intent, 1);
         }
         if(position == 1){
             Intent intent = new Intent(this, PhotoActivity.class);
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, 2);
         }
         if(position == 2){
             db.deleteCurUser(db.dbMyFitness);
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, 3);
         }
 
 

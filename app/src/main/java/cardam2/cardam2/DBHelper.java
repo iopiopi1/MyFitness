@@ -42,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE AppUniqueId (id INTEGER PRIMARY KEY, timestamp TEXT )"
         );
 
-        db.execSQL("CREATE TABLE curUser (id INTEGER PRIMARY KEY, authLogin TEXT, authPass TEXT, status TEXT, loggedDate TEXT )"
+        db.execSQL("CREATE TABLE curUser (id INTEGER PRIMARY KEY, authLogin TEXT, authPass TEXT, status TEXT, loggedDate TEXT, email TEXT)"
         );
 
         db.execSQL("CREATE TABLE JsonAnswer (id INTEGER PRIMARY KEY, JsonAnswer TEXT )"
@@ -87,12 +87,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addCurUser(SQLiteDatabase db, String login, String Pass, int id) {
+    public void addCurUser(SQLiteDatabase db, String login, String Pass, int id, String email) {
         //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
         db.execSQL("DELETE FROM curUser");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String format = simpleDateFormat.format(new Date());
-        db.execSQL("INSERT INTO curUser (id, authLogin , authPass , status, loggedDate ) VALUES("+id+",'"+login+"','"+Pass+"','ACTIVE', '"+format+"')");
+        db.execSQL("INSERT INTO curUser (id, authLogin , authPass , status, loggedDate ,email ) VALUES("+id+",'"+login+"','"+Pass+"','ACTIVE', '"+format+"', '"+email+"')");
     }
 
 
@@ -105,19 +105,23 @@ public class DBHelper extends SQLiteOpenHelper {
         String authLogin;
         String authPass;
         String loggedDate;
+        String email;
         //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
-        String SQLquery = "SELECT authLogin , authPass , status, loggedDate FROM curUser";
+        String SQLquery = "SELECT authLogin , authPass , status, loggedDate, email FROM curUser";
         Cursor cur = db.rawQuery(SQLquery, null);
         cur.moveToFirst();
         if(cur.getCount() != 0) {
             authLogin = cur.getString(0);
             authPass = cur.getString(1);
             loggedDate = cur.getString(3);
+            email = cur.getString(4);
         }
         else{
             authLogin = "Net takogo usera";
             authPass = "Net takogo usera";
             loggedDate = "01-01-1900-00-00-00";
+            loggedDate = cur.getString(3);
+            email = "";
         }
         cur.close();
 
@@ -125,33 +129,11 @@ public class DBHelper extends SQLiteOpenHelper {
             loggedDate = "01-01-2010-00-00-00";
         }
 
-        /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-        String dtsNow = simpleDateFormat.format(new Date());
-        String dtsLogged = loggedDate;//simpleDateFormat.format(loggedDate);
-        Date dtNow = null;
-        Date dtLogged = null;
-        Date dtNowMin = null;
-        String isOld = "no";*/
-        /*try {
-            //dtNow = simpleDateFormat.parse(dtsNow);
-            dtLogged = simpleDateFormat.parse(dtsLogged);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(dtNow);
-            cal.add(Calendar.MINUTE, -10);
-            String dtsNowMin = simpleDateFormat.format(cal.getTime());
-            dtNowMin = simpleDateFormat.parse(dtsNowMin);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-/*
-        if(dtNowMin.after(dtLogged)){
-            isOld = "yes";
-        }*/
-
         postParams = new ArrayList<KeyValueList>();
         postParams.add(0, new KeyValueList("username", authLogin));
         postParams.add(1, new KeyValueList("password", authPass));
         postParams.add(2, new KeyValueList("loggedTime", loggedDate));
+        postParams.add(3, new KeyValueList("email", email));
 
         return postParams;
 

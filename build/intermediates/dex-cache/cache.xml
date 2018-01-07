@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\d56271205f5ea7aac8198b9bbc709cdd\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="58b12bdb21a84f22e0dc3b047aeceb0a546b1b44">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\annotations\4.0.0-RC1\84c524dcd1a3088edd5560a8ac176eae1317f770\annotations-4.0.0-RC1.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="84c524dcd1a3088edd5560a8ac176eae1317f770">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\support-fragment-26.1.0.aar\178ced3e4be3a649e23972899bf23931\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7efef32744ca4a436492d5cf28c08698cc2af256">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\7.0.1\d5d13ea991eab0252e3710e5df3d6a9d4b21d461\butterknife-7.0.1.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\intellij\annotations\12.0\annotations-12.0.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bbcf6448f6d40abe506e2c83b70a3e8bfd2b4539">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\play-services-basement-9.0.0.aar\92c3e733ee51cc3fe38ed4460d9d3097\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="cc178928721f3222b3b06bdfbd9497378ccb9792">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\4.0.0-RC1\7baec7d5132e7343100a99630a56a6584a33addc\glide-4.0.0-RC1.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7baec7d5132e7343100a99630a56a6584a33addc">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\android.arch.core\common\1.0.0\a2d487452376193fc8c103dd2b9bd5f2b1b44563\common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\2332e310a11fdf557add3f996b530117\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="40392f30a601db5675cdf18192aab013d6fee6ec">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\60e6bc2a9affdd2b7ebf40b971a900ec\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3303ed8e4a5edeee87a550df658c26174a3bd546">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\0a06f70918b895d80d7f797cad003291\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\disklrucache\4.0.0-RC1\1b4bba8f8d3df8db064c875c043c01e9ca3cdee9\disklrucache-4.0.0-RC1.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1b4bba8f8d3df8db064c875c043c01e9ca3cdee9">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\support-core-utils-26.1.0.aar\d39d929b32aa07349a714f2b2595a696\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="233f60a165ae622c8b36731502ebbda0f65e1930">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\6bc33d9b06a3f0f28a798e9bb5427c36\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b62fdc4cfef174c1e456014195c83fa7de7dc041">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\5287eb482ec7553c668707bbb30fbfb3\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f97cf85b0fe70d37a705111dafa6b1b418ea1650">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\gifdecoder\4.0.0-RC1\c425e31eda1069f978a0e823ad50e567ab422656\gifdecoder-4.0.0-RC1.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c425e31eda1069f978a0e823ad50e567ab422656">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\b0e5d4d609f82b79e54b60dc13b1736c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a37fc31c5ceeaa4532a37358add1b189d8db4af1">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\firebase-iid-9.0.0.aar\f3c9eef1367e363d488022576d840659\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ea4b54dcbfe5ac05efb0a314105f07258118d3a7">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.android.support.constraint\constraint-layout-solver\1.0.2\b9cd8fc6bd15cb915735d34535db30ece0c44603\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\firebase-analytics-9.0.0.aar\6247fa72f498b422f8e107e1d86bafa3\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4ef8ab5fee042023018249474bc93bd4b2b9c17e">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\6c432839c0e11d5190f24bfe38c9a215\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2442771a5590dd4eb4bce00c2e9dca9e22e4c963">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\dad51e3e0981dcb356a883b9f4855215\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f428e2fbc9ed0b297e3a3f420e51e6982f66822d">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\95fabc0a62a6c2235fb8b79ba49254ac\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f4138a4e065826cb044d49faea4cfd7191773d1">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\firebase-common-9.0.0.aar\f6dd1c8354511db6bcc5a5c3914ba58c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="42df48c7305b08b14fa0e84561091b0c24d70d26">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\758d10568539f86274fb3d37ea9c1b45\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\26.1.0\814258103cf26a15fcc26ecce35f5b7d24b73f8\support-annotations-26.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0814258103cf26a15fcc26ecce35f5b7d24b73f8">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\modules-2\files-2.1\android.arch.lifecycle\common\1.0.0\e414a4cb28434e25c4f6aa71426eb20cf4874ae9\common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e414a4cb28434e25c4f6aa71426eb20cf4874ae9">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\support-core-ui-26.1.0.aar\ae0faa31a25f6bade701969231cb2708\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="508f50705b4fde51a16259f29c854201a3044516">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-9.0.0.aar\b2f6881512a5ad68643e21748de58fa3\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0dc8ab07eeceda5e99b305c8069765056b6e5c9d">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\play-services-base-9.0.0.aar\e34af698dcfdb7b36692a3aaebdca6fb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f65c144283b31b4b9a70e6e7aa4c4a1c897d4b8">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\timber-4.4.0.aar\a2a8c3924c69d9a123a26718bf9ef9b6\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="76182d2ede06926e942e5a947a130b915b83a489">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\acc0e92908007c63f907fbe80a21046e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\play-services-tasks-9.0.0.aar\9c7029faf4b2cfdb20063ba70504f322\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1941832901fc4e7a93300b53762e9f65d7650b99">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\yaros\.gradle\caches\transforms-1\files-1.1\nammu-1.1.1.aar\9f843d944f010a4e6ca5e221873ac820\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="689f46db059da36c68705bb3cf9fe67a130daf6a">
+        <dex dex="C:\Users\yaros\StudioProjects\Cardam\app\build\intermediates\transforms\preDex\release\6.jar" />
+    </item>
+
+</items>

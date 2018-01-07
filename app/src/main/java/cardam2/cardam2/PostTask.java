@@ -73,7 +73,7 @@ public class PostTask extends AsyncTask<String, String, String> {
             String state = postRespond.getString("state");
             if(state.equals("success")){
                 if(type == PostTask.LOGINTYPE){
-                    db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postRespond.getInt("id"));
+                    db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postRespond.getInt("id"),  postRespond.getString("email"));
                     mActivity.finish();
                 }
                 if(type == PostTask.CHECKLOGINTYPE){
@@ -228,7 +228,7 @@ public class PostTask extends AsyncTask<String, String, String> {
 
     public void setCurUserDB(JSONObject postDataParams){
         try {
-            db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postDataParams.getInt("id"));
+            db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postDataParams.getInt("id"), postDataParams.getString("email"));
         }
     catch (JSONException e) {
         e.printStackTrace();

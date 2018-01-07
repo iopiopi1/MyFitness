@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "941132081006",
+    "firebase_url": "https://cardam-412ea.firebaseio.com",
+    "project_id": "cardam-412ea",
+    "storage_bucket": "cardam-412ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941132081006:android:38199e62eb0745e2",
+        "android_client_info": {
+          "package_name": "cardam2.cardam2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941132081006-pev3mstuau21b8k6a5bdl7vkkmdltlua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBMxYzNVVz4xIEwa3qhXSBvobsYFyKyY4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single"
+        android:visible="true"
+        android:id="@+id/groupItemsNav">
+
+        <item
+            android:id="@+id/drawerNavSearch"
+            android:checked="false"
+            android:icon="@drawable/ic_search"
+            android:title="@string/drawerItemSearch" />
+
+        <item
+            android:id="@+id/drawerNavAdd"
+            android:checked="false"
+            android:icon="@drawable/ic_add_pic"
+            android:title="@string/drawerItemAdd" />
+
+        <item
+            android:id="@+id/drawerNavExit"
+            android:checked="false"
+            android:icon="@drawable/ic_action_exit"
+            android:title="@string/drawerItemQuit" />
+
+    </group>
+</menu>

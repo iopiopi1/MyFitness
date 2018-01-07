@@ -28,6 +28,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="drawerItemSearch">Поиск Регномера</string>
+    <string name="drawerItemAdd">Добавить фото ДТП</string>
+    <string name="drawerItemQuit">Выйти</string>
+
     <string-array name="menuAppItemTitles">
         <item>Поиск Регномера</item>
         <item>Добавить фото ДТП</item>

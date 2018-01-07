@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ import org.json.JSONObject;
 import 	android.view.ViewGroup;
 import MyFitness.KeyValueList;
 import 	android.view.LayoutInflater;
+import android.graphics.Color;
+import android.support.design.widget.NavigationView;
+import android.view.Gravity;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private String[] menuAppItemTitles;
     private String[] menuAppItemIcons;
-
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         Button addBt =  (Button) findViewById(R.id.add_button);
         addBt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, PhotoActivity.class);
-                startActivityForResult(intent, 1);
+            Intent intent = new Intent(mainActivity, PhotoActivity.class);
+            startActivityForResult(intent, 1);
             }
         });
 
@@ -84,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         Button searchBt =  (Button) findViewById(R.id.search_button);
         searchBt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, SearchActivity.class);
-                startActivityForResult(intent, 2);
+            Intent intent = new Intent(mainActivity, SearchActivity.class);
+            startActivityForResult(intent, 2);
             }
         });
 
@@ -103,9 +108,7 @@ public class MainActivity extends AppCompatActivity {
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -130,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            mDrawerLayout.openDrawer(mDrawerList);
+            mDrawerLayout.openDrawer(Gravity.LEFT);
+            NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
+            nv.bringToFront();
 
             return true;
         }
@@ -142,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     public void init(){
         cardamUrl = getResources().getString(R.string.cardamUrl);//"http://192.168.0.13:80";
         db = new DBHelper(this);
-        //db.deleteDatabase();
+        db.deleteDatabase();
         cardamUrlSearchRegnum = cardamUrl + getResources().getString(R.string.cardamUrlSearchRegnum);//cardamUrl + "/public/api/searchvehicle";
         cardamUrlCheckLogin = cardamUrl + getResources().getString(R.string.cardamUrlCheckLogin);
     }
@@ -150,34 +155,38 @@ public class MainActivity extends AppCompatActivity {
     public void initLeftDrawer(){
         menuAppItemTitles = getResources().getStringArray(R.array.menuAppItemTitles);
         menuAppItemIcons = getResources().getStringArray(R.array.menuAppItemIcons);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(
-            new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item,
-                R.id.textView,
-                menuAppItemTitles)
-           {
-               @Override
-               public View getView(int position, View convertView, ViewGroup parent) {
-                   LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                   View rowView = inflater.inflate(R.layout.drawer_list_item, parent, false);
-                   TextView textView = (TextView) rowView.findViewById(R.id.textView);
-                   ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-                   textView.setText(menuAppItemTitles[position]);
-                   if(position == 0){imageView.setImageResource(R.drawable.ic_search);}
-                   if(position == 1){imageView.setImageResource(R.drawable.ic_add_pic);}
-                   if(position == 2){imageView.setImageResource(0);}
-                   return rowView;
-               }
-           }
-        );
+        //Initializing NavigationView
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
-        //mTitle = mDrawerTitle = getTitle();
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                if(menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+                mDrawerLayout.closeDrawers();
+                switch (menuItem.getItemId()){
+                    case R.id.drawerNavSearch:
+                        Intent intent = new Intent(mainActivity, SearchActivity.class);
+                        startActivityForResult(intent, 1);
+                        return true;
+                    case R.id.drawerNavAdd:
+                        intent = new Intent(mainActivity, PhotoActivity.class);
+                        startActivityForResult(intent, 2);
+                        return true;
+                    case R.id.drawerNavExit:
+                        db.deleteCurUser(db.dbMyFitness);
+                        intent = new Intent(mainActivity, LoginActivity.class);
+                        startActivityForResult(intent, 3);
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
@@ -201,13 +210,7 @@ public class MainActivity extends AppCompatActivity {
              */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                //getActionBar().setTitle(mDrawerTitle);
-                mDrawerList.bringToFront();
-                mDrawerLayout.requestLayout();
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-
-
         };
 
 
@@ -217,37 +220,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    private void selectItem(int position) {
-        String category;
-
-        if(position == 0){
-            Intent intent = new Intent(this, SearchActivity.class);
-            startActivityForResult(intent, 1);
-        }
-        if(position == 1){
-            Intent intent = new Intent(this, PhotoActivity.class);
-            startActivityForResult(intent, 2);
-        }
-        if(position == 2){
-            db.deleteCurUser(db.dbMyFitness);
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, 3);
-        }
-
-
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
     public void checkCurUser(){
         postParams = db.getCurUser(db.dbMyFitness);
+        Button btUser = (Button)findViewById(R.id.userProfileButton);
+        TextView tv1 = (TextView)findViewById(R.id.username);
+        TextView tv2 = (TextView)findViewById(R.id.drawEmail);
+        String username = postParams.get(0).toString();
+        String userEmail = postParams.get(3).toString();
+        btUser.setText(username.charAt(1));
+        tv1.setText(username);
+        tv2.setText(userEmail);
+
         PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.CHECKLOGINTYPE);
         jt.execute();
 

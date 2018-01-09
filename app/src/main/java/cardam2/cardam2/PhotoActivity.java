@@ -40,6 +40,8 @@ import android.graphics.BitmapFactory;
 import android.widget.TextView;
 import android.view.Menu;
 import android.util.Log;
+import android.media.ExifInterface;
+import android.graphics.Matrix;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -157,24 +159,6 @@ public class PhotoActivity extends AppCompatActivity {
                     fileTask = new PostFilesTask(cardamUrl, photo, mActivity);
                     fileTask.execute();
                 }
-
-                /*
-                while(true) {
-                    try {
-                        fileTask.execute();
-                        if(fileTask.getStatuss().equals("Executed")){
-                            resultMessage = getResources().getString(R.string.photos_success_upload);
-                            break;
-                        }
-                    } catch (Exception e) {
-                        // handle exception
-                        if (++count == maxTries) {
-                            resultMessage = getResources().getString(R.string.photos_nonsuccess_upload);
-                            break;
-                        };
-                    }
-                }
-                */
                 Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
                 snackbar.show();
                 photos.clear();
@@ -351,16 +335,16 @@ public class PhotoActivity extends AppCompatActivity {
         if(photos.size() > 0 ) {
             //photosSpanTextView.setVisibility(View.INVISIBLE);
             for (int i = 0; i < photos.size(); i++) {
-                if(i > 8){break;}
+                if(i > 5){break;}
                 File imgFile = new File(photos.get(i).toString());
                 if (imgFile.exists()) {
                     final BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inSampleSize = 8;
+                    String imagePath = imgFile.getAbsolutePath();
                     Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
+                    myBitmap = checkOrientation(myBitmap, imagePath);
                     targetImageView = new ImageView(this);
-                    //uqId = db.addUniqueId(db.dbMyFitness);
-                    //targetImageView.setId(uqId);
-                    //targetImageView.setImageBitmap(myBitmap);
+
                     switch (i) {
                         case 0:
                             targetImageView = (ImageView) findViewById(R.id.imageView11);
@@ -379,15 +363,6 @@ public class PhotoActivity extends AppCompatActivity {
                             break;
                         case 5:
                             targetImageView = (ImageView) findViewById(R.id.imageView16);
-                            break;
-                        case 6:
-                            targetImageView = (ImageView) findViewById(R.id.imageView17);
-                            break;
-                        case 7:
-                            targetImageView = (ImageView) findViewById(R.id.imageView18);
-                            break;
-                        case 8:
-                            targetImageView = (ImageView) findViewById(R.id.imageView19);
                             break;
                     }
                     targetImageView.setImageBitmap(myBitmap);
@@ -417,16 +392,37 @@ public class PhotoActivity extends AppCompatActivity {
             targetImageView = (ImageView) findViewById(R.id.imageView16);
             targetImageView.setImageResource(0);
             targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView17);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView17);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView18);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
         }
     }
+
+    public static Bitmap checkOrientation(Bitmap image, String imagePath){
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(imagePath);
+        }
+        catch(IOException e){
+            return null;
+        }
+        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(image, 270);
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(image, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(image, 180);
+            default:
+                return image;
+        }
+
+    }
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        return rotatedImg;
+    }
+
 
 }

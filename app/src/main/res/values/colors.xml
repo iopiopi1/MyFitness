@@ -10,5 +10,6 @@
     <color name="colorBlack">#000000</color>
     <color name="ColorButtonPrimaryDarker">#cda605</color>
     <color name="ColorButtonPrimary2">#f7da62</color>
+    <color name="darkGray2">#5e5e5e</color>
 
 </resources>

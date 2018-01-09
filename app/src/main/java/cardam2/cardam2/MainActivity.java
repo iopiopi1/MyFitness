@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     public void init(){
         cardamUrl = getResources().getString(R.string.cardamUrl);//"http://192.168.0.13:80";
         db = new DBHelper(this);
-        db.deleteDatabase();
+        //db.deleteDatabase();
         cardamUrlSearchRegnum = cardamUrl + getResources().getString(R.string.cardamUrlSearchRegnum);//cardamUrl + "/public/api/searchvehicle";
         cardamUrlCheckLogin = cardamUrl + getResources().getString(R.string.cardamUrlCheckLogin);
     }
@@ -222,14 +222,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkCurUser(){
         postParams = db.getCurUser(db.dbMyFitness);
-        Button btUser = (Button)findViewById(R.id.userProfileButton);
-        TextView tv1 = (TextView)findViewById(R.id.username);
-        TextView tv2 = (TextView)findViewById(R.id.drawEmail);
-        String username = postParams.get(0).toString();
-        String userEmail = postParams.get(3).toString();
-        btUser.setText(username.charAt(1));
-        tv1.setText(username);
-        tv2.setText(userEmail);
+        NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
+        RelativeLayout nvRl = (RelativeLayout)nv.getHeaderView(0);
+        Button btUser = nvRl.findViewById(R.id.userProfileButton);
+        TextView tv1 = nvRl.findViewById(R.id.username);
+        TextView tv2 = nvRl.findViewById(R.id.drawEmail);
+        String username = postParams.get(0).getValue();
+        String userEmail = postParams.get(3).getValue();
+        if(username != "Net takogo usera" && username.length() > 0){
+            btUser.setText(username.substring(0,1));
+            tv1.setText(username);
+            tv2.setText(userEmail);
+        }
 
         PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.CHECKLOGINTYPE);
         jt.execute();

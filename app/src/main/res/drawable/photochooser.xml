@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/ic_add_photo"
+        android:elevation="4dp">
+        <shape android:shape="oval">
+            <solid android:color="#f0c309"/>
+            <size android:width="120dp" android:height="120dp"/>
+        </shape>
+    </item>
+</selector>

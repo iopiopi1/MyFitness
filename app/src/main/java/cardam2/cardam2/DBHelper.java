@@ -120,7 +120,6 @@ public class DBHelper extends SQLiteOpenHelper {
             authLogin = "Net takogo usera";
             authPass = "Net takogo usera";
             loggedDate = "01-01-1900-00-00-00";
-            loggedDate = cur.getString(3);
             email = "";
         }
         cur.close();

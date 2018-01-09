@@ -153,6 +153,8 @@ public class JsonTask extends AsyncTask<Void, Void, String> {
                 for (int i = 0; i < imgs.length(); i++) {
                     ImageView targetImageView = new ImageView(mContext);
                     uqId = db.addUniqueId(db.dbMyFitness);
+                    targetImageView.setAdjustViewBounds(true);
+                    targetImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     targetImageView.setId(uqId);
                     images.add(targetImageView);
                     JSONObject jsonobject = imgs.getJSONObject(i);

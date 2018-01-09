@@ -42,6 +42,8 @@ import android.view.Menu;
 import android.util.Log;
 import android.media.ExifInterface;
 import android.graphics.Matrix;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -342,7 +344,9 @@ public class PhotoActivity extends AppCompatActivity {
                     options.inSampleSize = 8;
                     String imagePath = imgFile.getAbsolutePath();
                     Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
-                    myBitmap = checkOrientation(myBitmap, imagePath);
+                    Bitmap myBitmapFull = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    myBitmapFull = checkOrientation(myBitmapFull, imagePath);
+                    photos.set(i, bitmapToJpeg(imgFile.getPath(), myBitmapFull));
                     targetImageView = new ImageView(this);
 
                     switch (i) {
@@ -393,6 +397,25 @@ public class PhotoActivity extends AppCompatActivity {
             targetImageView.setImageResource(0);
             targetImageView.invalidate();
         }
+    }
+
+    public File bitmapToJpeg(String filename, Bitmap bitmap){
+        File file = null;
+        try {
+            file = new File(filename);
+            FileOutputStream fOutputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOutputStream);
+            fOutputStream.flush();
+            fOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return file;
     }
 
     public static Bitmap checkOrientation(Bitmap image, String imagePath){

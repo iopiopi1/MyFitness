@@ -21,13 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TabHost;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,10 +38,6 @@ import android.graphics.BitmapFactory;
 import android.widget.TextView;
 import android.view.Menu;
 import android.util.Log;
-import android.media.ExifInterface;
-import android.graphics.Matrix;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -343,10 +337,8 @@ public class PhotoActivity extends AppCompatActivity {
                     final BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inSampleSize = 8;
                     String imagePath = imgFile.getAbsolutePath();
-                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
-                    Bitmap myBitmapFull = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                    myBitmapFull = checkOrientation(myBitmapFull, imagePath);
-                    photos.set(i, bitmapToJpeg(imgFile.getPath(), myBitmapFull));
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imagePath, options);
+                    myBitmap = ImageHelper.checkOrientation(myBitmap, imagePath);
                     targetImageView = new ImageView(this);
 
                     switch (i) {
@@ -371,10 +363,7 @@ public class PhotoActivity extends AppCompatActivity {
                     }
                     targetImageView.setImageBitmap(myBitmap);
                     targetImageView.invalidate();
-
                 }
-                //grLayout.getLayoutParams().width = 1;
-                //grLayout.addView(targetImageView);
             }
         }
         else{
@@ -399,53 +388,7 @@ public class PhotoActivity extends AppCompatActivity {
         }
     }
 
-    public File bitmapToJpeg(String filename, Bitmap bitmap){
-        File file = null;
-        try {
-            file = new File(filename);
-            FileOutputStream fOutputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOutputStream);
-            fOutputStream.flush();
-            fOutputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
 
-        return file;
-    }
-
-    public static Bitmap checkOrientation(Bitmap image, String imagePath){
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(imagePath);
-        }
-        catch(IOException e){
-            return null;
-        }
-        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                return rotateImage(image, 270);
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                return rotateImage(image, 90);
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                return rotateImage(image, 180);
-            default:
-                return image;
-        }
-
-    }
-    private static Bitmap rotateImage(Bitmap img, int degree) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(degree);
-        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
-        return rotatedImg;
-    }
 
 
 }

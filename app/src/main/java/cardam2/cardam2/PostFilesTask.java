@@ -1,6 +1,8 @@
 package cardam2.cardam2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -98,13 +100,17 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
                 connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
                 connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
                 for (int i = 0; i < photos.size(); i++) {
-                    if (i == 9) {
+                    if (i == 6) {
                         break;
                     }
                     //File file = new File(filepath);
-                    File file = photos.get(i);
-                    FileInputStream fileInputStream = new FileInputStream(file);
 
+                    File file = photos.get(i);
+                    Bitmap bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    bmp = ImageHelper.checkOrientation(bmp, file.getAbsolutePath());
+                    file = photos.set(i, ImageHelper.bitmapToJpeg(file.getAbsolutePath(), bmp));
+
+                    FileInputStream fileInputStream = new FileInputStream(file);
                     String[] q = file.getName().split("/");
                     int idx = q.length - 1;
 

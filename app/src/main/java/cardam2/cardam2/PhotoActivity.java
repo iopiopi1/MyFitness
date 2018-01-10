@@ -1,14 +1,10 @@
 package cardam2.cardam2;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabItem;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -20,21 +16,10 @@ import android.os.Environment;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.TabHost;
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import pl.tajchert.nammu.Nammu;
-import pl.tajchert.nammu.PermissionCallback;
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.widget.TextView;
 import android.view.Menu;
 import android.util.Log;
@@ -55,8 +40,8 @@ public class PhotoActivity extends AppCompatActivity {
     private MenuItem itemForward;
     private static final String PHOTOS_KEY = "easy_image_photos_list";
 
-    @Bind(R.id.recycler_view)
-    protected RecyclerView recyclerView;
+    //@Bind(R.id.recycler_view)
+    //protected RecyclerView recyclerView;
 
     private ImagesAdapter imagesAdapter;
 
@@ -68,6 +53,8 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -76,55 +63,21 @@ public class PhotoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ButterKnife.bind(this);
-        Nammu.init(this);
 
-        if (savedInstanceState != null) {
-            photos = (ArrayList<File>) savedInstanceState.getSerializable(PHOTOS_KEY);
+        if (findViewById(R.id.fragment_container) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            AddPicsFragment addpics = new AddPicsFragment();
+            //addpics.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, addpics).commit();
         }
-
-        imagesAdapter = new ImagesAdapter(this, photos);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(imagesAdapter);
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Nammu.askForPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, new PermissionCallback() {
-                @Override
-                public void permissionGranted() {
-                    //Nothing, this sample saves to Public gallery so it needs permission
-                }
-
-                @Override
-                public void permissionRefused() {
-                    finish();
-                }
-            });
-        }
-
-        int permissionCheckRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (permissionCheckRead != PackageManager.PERMISSION_GRANTED) {
-            Nammu.askForPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, new PermissionCallback() {
-                @Override
-                public void permissionGranted() {
-                    //Nothing, this sample saves to Public gallery so it needs permission
-                }
-
-                @Override
-                public void permissionRefused() {
-                    finish();
-                }
-            });
-        }
-
-        EasyImage.configuration(this)
-                .setImagesFolderName("Cardam")
-                .setAllowMultiplePickInGallery(true)
-                .setCopyTakenPhotosToPublicGalleryAppFolder(true);
-        mActivity = this;
-
-        init();
 
     }
 
@@ -158,7 +111,7 @@ public class PhotoActivity extends AppCompatActivity {
                 Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
                 snackbar.show();
                 photos.clear();
-                reloadPhotos();
+                //reloadPhotos();
                 invalidateOptionsMenu();
                 return true;
 
@@ -205,7 +158,6 @@ public class PhotoActivity extends AppCompatActivity {
         }
     }
 
-
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -230,163 +182,7 @@ public class PhotoActivity extends AppCompatActivity {
         this.sendBroadcast(mediaScanIntent);
     }
 
-    public void init(){
-        photosSpanId = 0;
-        reloadPhotos();
-    }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(PHOTOS_KEY, photos);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Nammu.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @OnClick(R.id.camera_button)
-    protected void onTakePhotoClicked() {
-        EasyImage.openCamera(this, 0);
-        //dispatchTakePictureIntent();
-    }
-
-    //@OnClick(R.id.documents_button)
-    protected void onPickFromDocumentsClicked() {
-        /** Some devices such as Samsungs which have their own gallery app require write permission. Testing is advised! */
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            EasyImage.openDocuments(this, 0);
-        } else {
-            Nammu.askForPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, new PermissionCallback() {
-                @Override
-                public void permissionGranted() {
-                    EasyImage.openDocuments(PhotoActivity.this, 0);
-                }
-
-                @Override
-                public void permissionRefused() {
-
-                }
-            });
-        }
-    }
-
-
-
-    @OnClick(R.id.chooser_button2)
-    protected void onChooserWithGalleryClicked() {
-        //EasyImage.openChooserWithGallery(this, "Pick source", 0);
-        EasyImage.openGallery(this, 0);
-    }
-
-    /*@OnClick(R.id.sendImagesBt)
-    protected void onSendPicsToServer() {
-
-    }*/
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                //Some error handling
-            }
-
-            @Override
-            public void onImagesPicked(List<File> imagesFiles, EasyImage.ImageSource source, int type) {
-                //Handle the images
-                onPhotosReturned(imagesFiles);
-            }
-        });
-    }
-
-    private void onPhotosReturned(List<File> returnedPhotos) {
-        photos.addAll(returnedPhotos);
-        imagesAdapter.notifyDataSetChanged();
-        recyclerView.scrollToPosition(photos.size() - 1);
-        //menu.getItem(i).setVisible(false);
-        invalidateOptionsMenu();
-        reloadPhotos();
-    }
-
-    @Override
-    protected void onDestroy() {
-        // Clear any configuration that was done!
-        EasyImage.clearConfiguration(this);
-        super.onDestroy();
-    }
-
-    public void reloadPhotos() {
-        db = new DBHelper(this);
-        int uqId;
-        ImageView targetImageView = null;
-        grLayout = (GridLayout) findViewById(R.id.gridLayout1);
-
-        if(photos.size() > 0 ) {
-            //photosSpanTextView.setVisibility(View.INVISIBLE);
-            for (int i = 0; i < photos.size(); i++) {
-                if(i > 5){break;}
-                File imgFile = new File(photos.get(i).toString());
-                if (imgFile.exists()) {
-                    final BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = 8;
-                    String imagePath = imgFile.getAbsolutePath();
-                    Bitmap myBitmap = BitmapFactory.decodeFile(imagePath, options);
-                    myBitmap = ImageHelper.checkOrientation(myBitmap, imagePath);
-                    targetImageView = new ImageView(this);
-
-                    switch (i) {
-                        case 0:
-                            targetImageView = (ImageView) findViewById(R.id.imageView11);
-                            break;
-                        case 1:
-                            targetImageView = (ImageView) findViewById(R.id.imageView12);
-                            break;
-                        case 2:
-                            targetImageView = (ImageView) findViewById(R.id.imageView13);
-                            break;
-                        case 3:
-                            targetImageView = (ImageView) findViewById(R.id.imageView14);
-                            break;
-                        case 4:
-                            targetImageView = (ImageView) findViewById(R.id.imageView15);
-                            break;
-                        case 5:
-                            targetImageView = (ImageView) findViewById(R.id.imageView16);
-                            break;
-                    }
-                    targetImageView.setImageBitmap(myBitmap);
-                    targetImageView.invalidate();
-                }
-            }
-        }
-        else{
-            targetImageView = (ImageView) findViewById(R.id.imageView11);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView12);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView13);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView14);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView15);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-            targetImageView = (ImageView) findViewById(R.id.imageView16);
-            targetImageView.setImageResource(0);
-            targetImageView.invalidate();
-        }
-    }
 
 
 

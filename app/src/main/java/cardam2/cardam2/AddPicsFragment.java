@@ -2,11 +2,16 @@ package cardam2.cardam2;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabItem;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,9 +40,13 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import static android.os.AsyncTask.Status.FINISHED;
 
 /**
  * Created by yaros on 1/10/2018.
@@ -59,13 +68,13 @@ public class AddPicsFragment extends Fragment  {
     private Menu menu;
     private MenuItem itemForward;
     private static final String PHOTOS_KEY = "easy_image_photos_list";
-
+    private ImageView targetImageView;
     @Bind(R.id.recycler_view)
     protected RecyclerView recyclerView;
 
     private ImagesAdapter imagesAdapter;
 
-    private ArrayList<File> photos = new ArrayList<>();
+    public ArrayList<File> photos = new ArrayList<>();
     private GridLayout grLayout;
 
     @Override
@@ -75,6 +84,7 @@ public class AddPicsFragment extends Fragment  {
         mActivity = (PhotoActivity)this.getActivity();
         mFragment = this;
 
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.addpics, container, false);
     }
 
@@ -137,6 +147,7 @@ public class AddPicsFragment extends Fragment  {
             public void onClick(View v) {
                 EasyImage.openCamera(mFragment, 0);
             }
+
         });
 
         ImageButton bt2 = (ImageButton) getView().findViewById(R.id.chooser_button2);
@@ -145,12 +156,57 @@ public class AddPicsFragment extends Fragment  {
                 EasyImage.openGallery(mFragment, 0);
             }
         });
-
     }
 
     public void init(){
         photosSpanId = 0;
         reloadPhotos();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String cardamUrl = getResources().getString(R.string.cardamUrl);
+        cardamUrl = cardamUrl + getResources().getString(R.string.cardamUrlImageUpoad);
+        Log.e("image was photos:",photos.toString());
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                turnOnProgressBar();
+                PostFilesTask fileTask = null;
+                ArrayList<PostFilesTask> tasks = new ArrayList<PostFilesTask>();
+
+                for(int i = 0; i < photos.size(); i++){
+                    ArrayList<File> photo = new ArrayList<>();
+                    Log.e("image was photo(0.5):",photos.get(i).toString());
+                    photo.add(0, photos.get(i));
+                    fileTask = new PostFilesTask(cardamUrl, photo, mActivity);
+                    fileTask.execute();
+                    tasks.add(fileTask);
+                }
+
+                boolean isFinished = false;
+                while(!isFinished){
+                    isFinished = true;
+                    for(int i = 0; i < photos.size(); i++){
+                        if(tasks.get(i).getStatus() != FINISHED){
+                            isFinished = false;
+                            Log.e("status", "status" + tasks.get(i).getStatus().toString() + "i: " + String.valueOf(i));
+                        }
+                    }
+                }
+                turnOffProgressBar();
+                Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
+                snackbar.show();
+                photos.clear();
+                reloadPhotos();
+                mActivity.invalidateOptionsMenu();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     @Override
@@ -179,7 +235,6 @@ public class AddPicsFragment extends Fragment  {
 
             @Override
             public void onImagesPicked(List<File> imagesFiles, EasyImage.ImageSource source, int type) {
-                //Handle the images
                 onPhotosReturned(imagesFiles);
             }
         });
@@ -189,7 +244,6 @@ public class AddPicsFragment extends Fragment  {
         photos.addAll(returnedPhotos);
         imagesAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(photos.size() - 1);
-        //menu.getItem(i).setVisible(false);
         mActivity.invalidateOptionsMenu();
         reloadPhotos();
     }
@@ -204,13 +258,14 @@ public class AddPicsFragment extends Fragment  {
     public void reloadPhotos() {
         db = new DBHelper(mActivity);
         int uqId;
-        ImageView targetImageView = null;
+        targetImageView = null;
         grLayout = (GridLayout) getView().findViewById(R.id.gridLayout1);
 
         if(photos.size() > 0 ) {
-            //photosSpanTextView.setVisibility(View.INVISIBLE);
             for (int i = 0; i < photos.size(); i++) {
-                if(i > 5){break;}
+                if (i > 5) {
+                    break;
+                }
                 File imgFile = new File(photos.get(i).toString());
                 if (imgFile.exists()) {
                     final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -266,4 +321,22 @@ public class AddPicsFragment extends Fragment  {
             targetImageView.invalidate();
         }
     }
+
+    public void turnOnProgressBar(){
+        ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.progressBar2);
+        ConstraintLayout cs = (ConstraintLayout) getView().findViewById(R.id.photoMainCL);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.bringToFront();
+        progressBar.invalidate();
+        cs.invalidate();
+    }
+
+    public void turnOffProgressBar(){
+        ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.progressBar2);
+        ConstraintLayout cs = (ConstraintLayout) getView().findViewById(R.id.photoMainCL);
+        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.invalidate();
+        cs.invalidate();
+    }
+
 }

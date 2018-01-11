@@ -7,8 +7,21 @@
     android:layout_height="match_parent"
     android:layout_marginTop="-4dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="cardam2.cardam2.PhotoActivity"
-    tools:showIn="@layout/activity_photo">
+    tools:context="cardam2.cardam2.PhotoActivity">
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="173dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="172dp"
+        android:elevation="100dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout6"
+        tools:layout_editor_absoluteX="106dp" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout6"

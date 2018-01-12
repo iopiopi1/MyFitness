@@ -7,24 +7,14 @@ import android.support.design.widget.TabItem;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.content.Intent;
-import android.provider.MediaStore;
 import java.io.File;
-import java.io.IOException;
-import android.os.Environment;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import android.net.Uri;
-import android.support.v4.content.FileProvider;
 import android.widget.GridLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.view.Menu;
-import android.util.Log;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -35,7 +25,7 @@ public class PhotoActivity extends AppCompatActivity {
     private TabItem galleryTI;
     private TabHost tab;
     private Activity mActivity;
-    private DBHelper db;
+    public DBHelper db;
     private int photosSpanId;
     private TextView photosSpanTextView;
     private Menu menu;

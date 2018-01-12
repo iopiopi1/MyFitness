@@ -5,10 +5,12 @@ import android.database.Cursor;
 import android.content.Context;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import MyFitness.KeyValueList;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -45,6 +47,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE curUser (id INTEGER PRIMARY KEY, authLogin TEXT, authPass TEXT, status TEXT, loggedDate TEXT, email TEXT)"
         );
 
+        db.execSQL("CREATE TABLE uploadedPhoto (id INTEGER PRIMARY KEY, timestamp TEXT)"
+        );
+
         db.execSQL("CREATE TABLE JsonAnswer (id INTEGER PRIMARY KEY, JsonAnswer TEXT )"
         );
 
@@ -62,6 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS AppUniqueId");
         db.execSQL("DROP TABLE IF EXISTS JsonAnswer");
         db.execSQL("DROP TABLE IF EXISTS curUser");
+        db.execSQL("DROP TABLE IF EXISTS uploadedPhoto");
         this.onCreate(db);
     }
 
@@ -93,6 +99,67 @@ public class DBHelper extends SQLiteOpenHelper {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String format = simpleDateFormat.format(new Date());
         db.execSQL("INSERT INTO curUser (id, authLogin , authPass , status, loggedDate ,email ) VALUES("+id+",'"+login+"','"+Pass+"','ACTIVE', '"+format+"', '"+email+"')");
+    }
+
+    public void uploadPhoto(SQLiteDatabase db){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String timestamp = simpleDateFormat.format(new Date());
+        db.execSQL("INSERT INTO uploadedPhoto (timestamp) VALUES('" + timestamp + "')");
+
+    }
+
+    public String uploadTimeNext(SQLiteDatabase db){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String earliest;
+        Date earliestDT = null;
+        Date now = new Date();
+        int hours = 24;
+        String timestamp24h = addDateString(-24);
+        String SQLquery = "SELECT timestamp FROM uploadedPhoto WHERE timestamp > '" + timestamp24h + "' ORDER BY id ASC LIMIT 1";
+        Cursor cur = db.rawQuery(SQLquery, null);
+        cur.moveToFirst();
+        if(cur.getCount() > 0) {
+            earliest = cur.getString(0);
+            try {
+                earliestDT = simpleDateFormat.parse(earliest);
+                long diff = now.getTime() - earliestDT.getTime();
+                hours = (int)(diff / (1000 * 60 * 60));
+            }
+            catch(ParseException e){
+
+            }
+            finally{
+            }
+        }
+        cur.close();
+
+        return String.valueOf(hours);
+    }
+
+    public boolean canUploadNew(SQLiteDatabase db){
+        boolean canUpload = false;
+        String timestamp24h = addDateString(-24);
+        String SQLquery ="SELECT timestamp FROM uploadedPhoto WHERE timestamp > '" + timestamp24h + "'";
+        Cursor cur = db.rawQuery(SQLquery, null);
+        cur.moveToFirst();
+        if(cur.getCount() < 6) {
+            canUpload = true;
+        }
+        cur.close();
+
+        return canUpload;
+    }
+
+    public String addDateString(int interval){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String timestamp = simpleDateFormat.format(new Date());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.HOUR_OF_DAY, interval);
+        Date h24 = cal.getTime();
+        String timestamp24h = simpleDateFormat.format(h24);
+
+        return timestamp24h;
     }
 
 

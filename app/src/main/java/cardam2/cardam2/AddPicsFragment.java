@@ -6,11 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabItem;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,20 +17,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.support.v7.widget.LinearLayoutManager;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import pl.tajchert.nammu.Nammu;
@@ -44,9 +35,6 @@ import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import static android.os.AsyncTask.Status.FINISHED;
 
 /**
  * Created by yaros on 1/10/2018.
@@ -62,13 +50,13 @@ public class AddPicsFragment extends Fragment  {
     private TabHost tab;
     private Activity mActivity;
     private Fragment mFragment;
-    private DBHelper db;
     private int photosSpanId;
     private TextView photosSpanTextView;
     private Menu menu;
     private MenuItem itemForward;
     private static final String PHOTOS_KEY = "easy_image_photos_list";
     private ImageView targetImageView;
+    public DBHelper db;
     @Bind(R.id.recycler_view)
     protected RecyclerView recyclerView;
 
@@ -83,7 +71,7 @@ public class AddPicsFragment extends Fragment  {
 
         mActivity = (PhotoActivity)this.getActivity();
         mFragment = this;
-
+        db = new DBHelper(mActivity);
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.addpics, container, false);
     }
@@ -145,7 +133,17 @@ public class AddPicsFragment extends Fragment  {
         ImageButton bt1 = (ImageButton) getView().findViewById(R.id.camera_button);
         bt1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EasyImage.openCamera(mFragment, 0);
+                boolean canUpload = db.canUploadNew(db.dbMyFitness);
+                if(canUpload) {
+                    EasyImage.openCamera(mFragment, 0);
+                }
+                else{
+                    String msg = getView().getResources().getString(R.string.photos_enough_upload);
+                    String hours = db.uploadTimeNext(db.dbMyFitness);
+                    msg = msg  + " " +  hours  + " " +  "часа(ов)";
+                    Snackbar snackbar = Snackbar.make(getView().findViewById(R.id.constraintLayout3), msg, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
             }
 
         });
@@ -153,7 +151,17 @@ public class AddPicsFragment extends Fragment  {
         ImageButton bt2 = (ImageButton) getView().findViewById(R.id.chooser_button2);
         bt2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EasyImage.openGallery(mFragment, 0);
+                boolean canUpload = db.canUploadNew(db.dbMyFitness);
+                if(canUpload) {
+                    EasyImage.openGallery(mFragment, 0);
+                }
+                else{
+                    String msg = getView().getResources().getString(R.string.photos_enough_upload);
+                    String hours = db.uploadTimeNext(db.dbMyFitness);
+                    msg = msg + " " + hours + " " + "часа(ов)";
+                    Snackbar snackbar = Snackbar.make(getView().findViewById(R.id.constraintLayout3), msg, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
             }
         });
     }
@@ -170,7 +178,7 @@ public class AddPicsFragment extends Fragment  {
         Log.e("image was photos:",photos.toString());
         switch (item.getItemId()) {
             case R.id.action_favorite:
-                turnOnProgressBar();
+                //turnOnProgressBar();
                 PostFilesTask fileTask = null;
                 ArrayList<PostFilesTask> tasks = new ArrayList<PostFilesTask>();
 
@@ -178,27 +186,17 @@ public class AddPicsFragment extends Fragment  {
                     ArrayList<File> photo = new ArrayList<>();
                     Log.e("image was photo(0.5):",photos.get(i).toString());
                     photo.add(0, photos.get(i));
-                    fileTask = new PostFilesTask(cardamUrl, photo, mActivity);
+                    float d = (((float)i / photos.size()) * 100);
+                    int percentage = Math.round(d);
+                    boolean isLast = false;
+                    if(i + 1 == photos.size() ){
+                        isLast = true;
+                    }
+                    fileTask = new PostFilesTask(cardamUrl, photo, mActivity, percentage, isLast);
                     fileTask.execute();
                     tasks.add(fileTask);
                 }
 
-                boolean isFinished = false;
-                while(!isFinished){
-                    isFinished = true;
-                    for(int i = 0; i < photos.size(); i++){
-                        if(tasks.get(i).getStatus() != FINISHED){
-                            isFinished = false;
-                            Log.e("status", "status" + tasks.get(i).getStatus().toString() + "i: " + String.valueOf(i));
-                        }
-                    }
-                }
-                turnOffProgressBar();
-                Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
-                snackbar.show();
-                photos.clear();
-                reloadPhotos();
-                mActivity.invalidateOptionsMenu();
                 return true;
 
             default:
@@ -256,7 +254,6 @@ public class AddPicsFragment extends Fragment  {
     }
 
     public void reloadPhotos() {
-        db = new DBHelper(mActivity);
         int uqId;
         targetImageView = null;
         grLayout = (GridLayout) getView().findViewById(R.id.gridLayout1);
@@ -322,10 +319,17 @@ public class AddPicsFragment extends Fragment  {
         }
     }
 
-    public void turnOnProgressBar(){
+    public void turnOnProgressBar(int progress){
         ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.progressBar2);
         ConstraintLayout cs = (ConstraintLayout) getView().findViewById(R.id.photoMainCL);
+        GridLayout gr1 = (GridLayout) getView().findViewById(R.id.gridLayout1);
+        gr1.setAlpha((float)0.3);
+        gr1.invalidate();
+        ConstraintLayout cs5 = (ConstraintLayout)getView().findViewById(R.id.constraintLayout5);
+        cs5.setAlpha((float)0.3);
+        cs5.invalidate();
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.setProgress(progress);
         progressBar.bringToFront();
         progressBar.invalidate();
         cs.invalidate();
@@ -336,6 +340,12 @@ public class AddPicsFragment extends Fragment  {
         ConstraintLayout cs = (ConstraintLayout) getView().findViewById(R.id.photoMainCL);
         progressBar.setVisibility(View.INVISIBLE);
         progressBar.invalidate();
+        GridLayout gr1 = (GridLayout)mActivity.findViewById(R.id.gridLayout1);
+        gr1.setAlpha((float)1);
+        gr1.invalidate();
+        ConstraintLayout cs5 = (ConstraintLayout)getView().findViewById(R.id.constraintLayout5);
+        cs5.setAlpha((float)1);
+        cs5.invalidate();
         cs.invalidate();
     }
 

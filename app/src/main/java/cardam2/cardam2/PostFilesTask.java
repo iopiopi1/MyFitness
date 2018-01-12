@@ -21,13 +21,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.HashMap;
+
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 /**
  * Created by iopiopi on 8/11/17.
  */
 
-public class PostFilesTask extends AsyncTask<String, String, String> {
+public class PostFilesTask extends AsyncTask<String, Integer, String> {
 
     private String URL;
     private List<File> imgs;
@@ -38,8 +40,10 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
     private DBHelper db;
     private Context parActivity;
     private String status;
+    private int percentage;
+    private boolean isLast;
 
-    public PostFilesTask(String sendUrl, List<File> photos, Context mActivity) {
+    public PostFilesTask(String sendUrl, List<File> photos, Context mActivity, int perc, boolean last) {
         URL = sendUrl;
         imgs = photos;
         Log.e("image was photos1:",photos.toString());
@@ -54,6 +58,8 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
         postParams.put("vehicle_uid", "");
         postParams.put("userId", Integer.toString(userId));
         resultToAct = "notFinished";
+        percentage = perc;
+        isLast = last;
     }
 
 
@@ -61,8 +67,15 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
     protected String doInBackground(String... data) {
 
         Log.e("image was photos2:",imgs.toString());
+        publishProgress();
         String result = multipartRequest(URL, postParams, imgs, "files[f]", "image/jpeg");
-
+        /*publishProgress();
+        try {
+            Thread.sleep(100000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+        //String result = "";
         status = "Executed";
         return result;
     }
@@ -186,6 +199,11 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
 
     }
 
+    protected void onProgressUpdate(Integer... progress) {
+        PhotoActivity photoActivity = (PhotoActivity)parActivity;
+        photoActivity.addpicsFragment.turnOnProgressBar(percentage);
+        Log.e("progress", String.valueOf(percentage));
+    }
 
     @Override
     protected void onPostExecute(String strings) {
@@ -196,14 +214,24 @@ public class PostFilesTask extends AsyncTask<String, String, String> {
             result = resultJSON.getString("status");
             resultToAct = resultJSON.getString("status");
             if(!resultToAct.equals("success")){
-                PostFilesTask pe = new PostFilesTask(URL, imgs, parActivity);
+                PostFilesTask pe = new PostFilesTask(URL, imgs, parActivity, percentage, isLast);
                 pe.execute();
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        db.uploadPhoto(db.dbMyFitness);
+        PhotoActivity photoActivity = (PhotoActivity)parActivity;
+        AddPicsFragment addpicsFragment = photoActivity.addpicsFragment;
+        if(isLast) {
+            photoActivity.addpicsFragment.turnOffProgressBar();
+            Snackbar snackbar = Snackbar.make(photoActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
+            addpicsFragment.photos.clear();
+            addpicsFragment.reloadPhotos();
+            snackbar.show();
+            photoActivity.invalidateOptionsMenu();
+        }
     }
 
     private String convertStreamToString(InputStream is) {

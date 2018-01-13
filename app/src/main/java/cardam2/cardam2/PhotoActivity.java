@@ -95,11 +95,13 @@ public class PhotoActivity extends AppCompatActivity {
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if(addpicsFragment.photos != null) {
-            if (addpicsFragment.photos.size() > 0) {
-                menu.findItem(R.id.action_favorite).setVisible(true);
-            } else {
-                menu.findItem(R.id.action_favorite).setVisible(false);
+        if(addpicsFragment != null) {
+            if (addpicsFragment.photos != null) {
+                if (addpicsFragment.photos.size() > 0) {
+                    menu.findItem(R.id.action_favorite).setVisible(true);
+                } else {
+                    menu.findItem(R.id.action_favorite).setVisible(false);
+                }
             }
         }
         return super.onPrepareOptionsMenu(menu);

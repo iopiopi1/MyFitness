@@ -259,6 +259,9 @@ public class AddPicsFragment extends Fragment  {
         grLayout = (GridLayout) getView().findViewById(R.id.gridLayout1);
 
         if(photos.size() > 0 ) {
+            PhotoActivity pActivity = (PhotoActivity)getActivity();
+            pActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            pActivity.invalidateOptionsMenu();
             for (int i = 0; i < photos.size(); i++) {
                 if (i > 5) {
                     break;
@@ -296,6 +299,7 @@ public class AddPicsFragment extends Fragment  {
                     targetImageView.invalidate();
                 }
             }
+            pActivity.transaction.commit();
         }
         else{
             targetImageView = (ImageView) getView().findViewById(R.id.imageView11);
@@ -320,33 +324,39 @@ public class AddPicsFragment extends Fragment  {
     }
 
     public void turnOnProgressBar(int progress){
-        ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.progressBar2);
-        ConstraintLayout cs = (ConstraintLayout) getView().findViewById(R.id.photoMainCL);
-        GridLayout gr1 = (GridLayout) getView().findViewById(R.id.gridLayout1);
-        gr1.setAlpha((float)0.3);
-        gr1.invalidate();
-        ConstraintLayout cs5 = (ConstraintLayout)getView().findViewById(R.id.constraintLayout5);
-        cs5.setAlpha((float)0.3);
-        cs5.invalidate();
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setProgress(progress);
-        progressBar.bringToFront();
-        progressBar.invalidate();
-        cs.invalidate();
+        View view = getView();
+        if(view != null) {
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar2);
+            ConstraintLayout cs = (ConstraintLayout) view.findViewById(R.id.photoMainCL);
+            GridLayout gr1 = (GridLayout) view.findViewById(R.id.gridLayout1);
+            gr1.setAlpha((float) 0.3);
+            gr1.invalidate();
+            ConstraintLayout cs5 = (ConstraintLayout) view.findViewById(R.id.constraintLayout5);
+            cs5.setAlpha((float) 0.3);
+            cs5.invalidate();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(progress);
+            progressBar.bringToFront();
+            progressBar.invalidate();
+            cs.invalidate();
+        }
     }
 
     public void turnOffProgressBar(){
-        ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.progressBar2);
-        ConstraintLayout cs = (ConstraintLayout) getView().findViewById(R.id.photoMainCL);
-        progressBar.setVisibility(View.INVISIBLE);
-        progressBar.invalidate();
-        GridLayout gr1 = (GridLayout)mActivity.findViewById(R.id.gridLayout1);
-        gr1.setAlpha((float)1);
-        gr1.invalidate();
-        ConstraintLayout cs5 = (ConstraintLayout)getView().findViewById(R.id.constraintLayout5);
-        cs5.setAlpha((float)1);
-        cs5.invalidate();
-        cs.invalidate();
+        View view = getView();
+        if(view != null) {
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar2);
+            ConstraintLayout cs = (ConstraintLayout) view.findViewById(R.id.photoMainCL);
+            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.invalidate();
+            GridLayout gr1 = (GridLayout) view.findViewById(R.id.gridLayout1);
+            gr1.setAlpha((float) 1);
+            gr1.invalidate();
+            ConstraintLayout cs5 = (ConstraintLayout) view.findViewById(R.id.constraintLayout5);
+            cs5.setAlpha((float) 1);
+            cs5.invalidate();
+            cs.invalidate();
+        }
     }
 
 }

@@ -230,6 +230,7 @@ public class PostFilesTask extends AsyncTask<String, Integer, String> {
             addpicsFragment.photos.clear();
             addpicsFragment.reloadPhotos();
             snackbar.show();
+            photoActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             photoActivity.invalidateOptionsMenu();
         }
     }

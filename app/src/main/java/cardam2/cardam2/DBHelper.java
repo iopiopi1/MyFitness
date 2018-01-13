@@ -123,7 +123,7 @@ public class DBHelper extends SQLiteOpenHelper {
             try {
                 earliestDT = simpleDateFormat.parse(earliest);
                 long diff = now.getTime() - earliestDT.getTime();
-                hours = (int)(diff / (1000 * 60 * 60));
+                hours = 24 - (int)(diff / (1000 * 60 * 60));
             }
             catch(ParseException e){
 

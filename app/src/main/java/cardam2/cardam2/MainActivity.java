@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
             btUser.setText(username.substring(0,1));
             tv1.setText(username);
             tv2.setText(userEmail);
+            nvRl.invalidate();
         }
 
         PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.CHECKLOGINTYPE);

@@ -44,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE AppUniqueId (id INTEGER PRIMARY KEY, timestamp TEXT )"
         );
 
-        db.execSQL("CREATE TABLE curUser (id INTEGER PRIMARY KEY, authLogin TEXT, authPass TEXT, status TEXT, loggedDate TEXT, email TEXT)"
+        db.execSQL("CREATE TABLE curUser (id INTEGER PRIMARY KEY, authLogin TEXT, authPass TEXT, status TEXT, loggedDate TEXT, email TEXT, statementAccepted INTEGER, secPolicyAccepted INTEGER)"
         );
 
         db.execSQL("CREATE TABLE uploadedPhoto (id INTEGER PRIMARY KEY, timestamp TEXT)"
@@ -98,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM curUser");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String format = simpleDateFormat.format(new Date());
-        db.execSQL("INSERT INTO curUser (id, authLogin , authPass , status, loggedDate ,email ) VALUES("+id+",'"+login+"','"+Pass+"','ACTIVE', '"+format+"', '"+email+"')");
+        db.execSQL("INSERT INTO curUser (id, authLogin , authPass , status, loggedDate ,email, statementAccepted, secPolicyAccepted ) VALUES("+id+",'"+login+"','"+Pass+"','ACTIVE', '"+format+"', '"+email+"', 0, 0)");
     }
 
     public void uploadPhoto(SQLiteDatabase db){
@@ -134,6 +134,44 @@ public class DBHelper extends SQLiteOpenHelper {
         cur.close();
 
         return String.valueOf(hours);
+    }
+
+    public void updateUSAcceptence(SQLiteDatabase db){
+        db.execSQL("UPDATE curUser SET statementAccepted = 1");
+    }
+
+    public void updateCPAcceptence(SQLiteDatabase db){
+        db.execSQL("UPDATE curUser SET secPolicyAccepted = 1");
+    }
+
+    public boolean isUSAcceptedUS(SQLiteDatabase db){
+        boolean accepted = false;
+        String SQLquery ="SELECT statementAccepted FROM curUser WHERE statementAccepted = 1";
+        Cursor cur = db.rawQuery(SQLquery, null);
+        int rows = cur.getCount();
+        cur.close();
+
+        if(rows == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean isCPAcceptedUS(SQLiteDatabase db){
+        boolean accepted = false;
+        String SQLquery ="SELECT secPolicyAccepted FROM curUser WHERE secPolicyAccepted = 1";
+        Cursor cur = db.rawQuery(SQLquery, null);
+        int rows = cur.getCount();
+        cur.close();
+
+        if(rows == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean canUploadNew(SQLiteDatabase db){

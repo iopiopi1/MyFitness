@@ -86,14 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
                     postParams.add(3, new KeyValueList("password_repeat", regPassStr2));
                     PostTask jt = new PostTask(cardamUrlRegister, activity, postParams, viewId, PostTask.REGTYPE);
                     jt.execute();
-
-                    /*
-                    if(jt.getStatus() == AsyncTask.Status.FINISHED){
-                        String res = jt.getRegStatus();
-                    }
-                    if(jt.getRegStatus().equals("SENT")){
-                        Snackbar snackbar = Snackbar.make(activity.findViewById(viewId), R.string.snackbarUserRegSuccess, Snackbar.LENGTH_LONG);
-                    }*/
                 }
             }
         });

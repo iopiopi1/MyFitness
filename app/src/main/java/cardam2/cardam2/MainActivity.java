@@ -98,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        makeUserProfileNavigation(null);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -222,13 +228,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkCurUser(){
         postParams = db.getCurUser(db.dbMyFitness);
+        PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.CHECKLOGINTYPE);
+        jt.execute();
+
+    }
+
+    public void makeUserProfileNavigation(List<KeyValueList> params){
+        if(params == null){
+            params = db.getCurUser(db.dbMyFitness);
+        }
         NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
         RelativeLayout nvRl = (RelativeLayout)nv.getHeaderView(0);
         Button btUser = nvRl.findViewById(R.id.userProfileButton);
         TextView tv1 = nvRl.findViewById(R.id.username);
         TextView tv2 = nvRl.findViewById(R.id.drawEmail);
-        String username = postParams.get(0).getValue();
-        String userEmail = postParams.get(3).getValue();
+        String username = params.get(0).getValue();
+        String userEmail = params.get(3).getValue();
         if(username != "Net takogo usera" && username.length() > 0){
             btUser.setText(username.substring(0,1));
             tv1.setText(username);
@@ -236,11 +251,7 @@ public class MainActivity extends AppCompatActivity {
             nvRl.invalidate();
         }
 
-        PostTask jt = new PostTask(cardamUrlCheckLogin, mainActivity, postParams, R.id.CoordinatorLayout, PostTask.CHECKLOGINTYPE);
-        jt.execute();
 
     }
-
-
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cardamUrl">http://cardam.ru</string><!--192.168.0.13:80-->
+    <string name="cardamUrl">http://cardam.ru<!--http://192.168.0.13:80--></string><!--192.168.0.13:80-->
     <string name="cardamUrlSearchRegnum">/api/searchvehicle</string><!--/public/api/searchvehicle-->
     <string name="cardamUrlViewRegnum">/api/getvehicle</string><!--/public/api/getvehicle-->
     <string name="cardamUrlCheckLogin">/user/checklogin</string><!--/public/user/checklogin-->

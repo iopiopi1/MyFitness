@@ -75,13 +75,20 @@ public class PostTask extends AsyncTask<String, String, String> {
                 if(type == PostTask.LOGINTYPE){
                     db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postRespond.getInt("id"),  postRespond.getString("email"));
                     mActivity.finish();
+                    Boolean statementAccepted = postRespond.getBoolean("userStAccd");
+                    Boolean secPolicyAccepted = postRespond.getBoolean("secPolAccd");
+                    if(statementAccepted == false || secPolicyAccepted == false){
+                        Intent intent = new Intent(mActivity, UserPoliciesActivity.class);
+                        intent.putExtra("statementAccepted", statementAccepted);
+                        intent.putExtra("secPolicyAccepted", secPolicyAccepted);
+                        mActivity.startActivityForResult(intent, 1);
+                    }
+
                 }
                 if(type == PostTask.CHECKLOGINTYPE){
                     String status = checkLoginStatus(postRespond.getString("passTime"), postDataParams.getString("loggedTime"));
                     if(!status.equals("yes")) {
-                        //db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postRespond.getInt("id"));
                         List<KeyValueList> postParams = db.getCurUser(db.dbMyFitness);
-                        //mActivity.finish();
                     }
                     else{
                         Intent intent = new Intent(mActivity, LoginActivity.class);
@@ -95,6 +102,8 @@ public class PostTask extends AsyncTask<String, String, String> {
                     Intent intent = mActivity.getIntent();
                     intent.putExtra("REGISTRATION", "SENT");
                     mActivity.setResult(RESULT_OK, intent);
+                    Snackbar snackbar = Snackbar.make(mActivity.findViewById(viewId), R.string.snackbarUserRegSuccess, Snackbar.LENGTH_LONG);
+                    snackbar.show();
                     mActivity.finish();
                 }
                 if(type == PostTask.RESTORETYPE){
@@ -243,8 +252,6 @@ public class PostTask extends AsyncTask<String, String, String> {
         String isOld = null;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-        //String dtspassChangedTimeServ = simpleDateFormat.format(passChangedTimeServ);
-        //String dtspassLoggedLoc = simpleDateFormat.format(passLoggedLoc);
         Date dtpassChangedTimeServ = null;
         Date dtpassLoggedLoc = null;
         try {

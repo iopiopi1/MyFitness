@@ -71,7 +71,8 @@
             android:name=".PhotoActivity"
             android:label="@string/title_activity_photo"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cardam2.cardam2.MainActivity" />

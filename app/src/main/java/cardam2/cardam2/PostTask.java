@@ -38,6 +38,7 @@ public class PostTask extends AsyncTask<String, String, String> {
     public static final int RESTORETYPE = 1;
     public static final int REGTYPE = 2;
     public static final int CHECKLOGINTYPE = 3;
+    public static final int UPDATEPOLICIES = 4;
     private String RegStatus = "";
 
     public PostTask(String sendUrl, Activity act, List<KeyValueList> postParams, int vViewId, int tType) {
@@ -164,7 +165,7 @@ public class PostTask extends AsyncTask<String, String, String> {
             c.setDoInput(true);
             c.setDoOutput(true);
             c.setReadTimeout(10000);
-            c.setConnectTimeout(15000);
+            c.setConnectTimeout(3000);
 
             DataOutputStream dStream = new DataOutputStream(c.getOutputStream());
             dStream.writeBytes(getPostDataString(postDataParams));
@@ -197,17 +198,19 @@ public class PostTask extends AsyncTask<String, String, String> {
             }
 
         } catch (Exception ex) {
-            return ex.toString();
+            return "{\"state\":\"failed\",\"errorMsg\" : \"Произошла ошибка " + ex.toString() +"\"}";
         } finally {
             if (c != null) {
                 try {
                     c.disconnect();
                 } catch (Exception ex) {
                     //disconnect error
+                    return "{\"state\":\"failed\",\"errorMsg\" : \"Произошла ошибка " + ex.toString() +"\"}";
                 }
             }
+
         }
-        return null;
+        return "{\"state\":\"failed\",\"errorMsg\" : \"Произошла ошибка\"}";
     }
 
     public String getPostDataString(JSONObject params) throws Exception {

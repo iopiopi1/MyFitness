@@ -12,6 +12,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.text.Html;
 
+import java.util.List;
+
+import MyFitness.KeyValueList;
+import java.util.ArrayList;
+
 public class UserPoliciesActivity extends AppCompatActivity {
 
     private Boolean statementAccepted = false;
@@ -67,6 +72,11 @@ public class UserPoliciesActivity extends AppCompatActivity {
 
             if(curType == "secPolicyAccepted"){
                 db.updateCPAcceptence(db.dbMyFitness);
+                List<KeyValueList> postParams = db.getCurUser(db.dbMyFitness);
+                String cardamUrl = getResources().getString(R.string.cardamUrl);
+                String cardamUrlUpdPolicies = cardamUrl + getResources().getString(R.string.cardamUrlUpdPolicies);
+                PostTask jt = new PostTask(cardamUrlUpdPolicies, mActivity, postParams, R.id.const111, -1);
+                jt.execute();
                 Intent intent = new Intent(mActivity, MainActivity.class);
                 startActivity(intent);
             }

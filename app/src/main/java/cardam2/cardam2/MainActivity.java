@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Button searchBt =  (Button) findViewById(R.id.search_button);
         searchBt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -93,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 2);
             }
         });
-
-
     }
 
     @Override

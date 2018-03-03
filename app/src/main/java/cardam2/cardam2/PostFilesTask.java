@@ -201,7 +201,7 @@ public class PostFilesTask extends AsyncTask<String, Integer, String> {
 
     protected void onProgressUpdate(Integer... progress) {
         PhotoActivity photoActivity = (PhotoActivity)parActivity;
-        photoActivity.addpicsFragment.turnOnProgressBar(percentage);
+        photoActivity.turnOnProgressBar(percentage);
         Log.e("progress", String.valueOf(percentage));
     }
 
@@ -225,10 +225,10 @@ public class PostFilesTask extends AsyncTask<String, Integer, String> {
         PhotoActivity photoActivity = (PhotoActivity)parActivity;
         AddPicsFragment addpicsFragment = photoActivity.addpicsFragment;
         if(isLast) {
-            photoActivity.addpicsFragment.turnOffProgressBar();
+            photoActivity.turnOffProgressBar();
             Snackbar snackbar = Snackbar.make(photoActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);
-            addpicsFragment.photos.clear();
-            addpicsFragment.reloadPhotos();
+            photoActivity.photos.clear();
+            photoActivity.reloadPhotos();
             snackbar.show();
             photoActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             photoActivity.invalidateOptionsMenu();

@@ -1,5 +1,6 @@
 package cardam2.cardam2;
 
+import android.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +9,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabItem;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +28,10 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TabHost;
+import android.widget.TextView;
 import android.view.Menu;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -32,27 +39,37 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
 
-public class PhotoActivity extends AppCompatActivity{
-    public AddPicsFragment addpicsFragment;
+public class PhotoActivity extends AppCompatActivity {
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
+    private String mCurrentPhotoPath;
+    private TabItem photoTI;
+    private TabItem galleryTI;
+    private TabHost tab;
     private Activity mActivity;
+    public DBHelper db;
     private int photosSpanId;
-    private Menu optionsMenu;
+    private TextView photosSpanTextView;
+    private Menu menu;
     private MenuItem itemForward;
     private static final String PHOTOS_KEY = "easy_image_photos_list";
     private ImageView targetImageView;
-    public DBHelper db;
     @Bind(R.id.recycler_view)
     protected RecyclerView recyclerView;
     private ImagesAdapter imagesAdapter;
     public ArrayList<File> photos = new ArrayList<>();
     private GridLayout grLayout;
+    private Menu optionsMenu;
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
         mActivity = this;
-
+        db = new DBHelper(mActivity);
+        //db.delUploadedPhoto(db.dbMyFitness);////////////////////////////////////////////////////////
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -60,15 +77,16 @@ public class PhotoActivity extends AppCompatActivity{
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ButterKnife.bind(this);
-        Nammu.init(this);
-        db = new DBHelper(mActivity);
+
+        ButterKnife.bind(mActivity);
+        Nammu.init(mActivity);
 
         if (savedInstanceState != null) {
             photos = (ArrayList<File>) savedInstanceState.getSerializable(PHOTOS_KEY);
         }
+
         imagesAdapter = new ImagesAdapter(mActivity, photos);
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(imagesAdapter);
@@ -128,7 +146,7 @@ public class PhotoActivity extends AppCompatActivity{
 
         });
 
-        ImageButton bt2 = findViewById(R.id.chooser_button2);
+        ImageButton bt2 = (ImageButton) findViewById(R.id.chooser_button2);
         bt2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean canUpload = db.canUploadNew(db.dbMyFitness);
@@ -142,35 +160,53 @@ public class PhotoActivity extends AppCompatActivity{
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.constraintLayout3), msg, Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
-                reloadPhotos();
             }
         });
 
-    }
 
-    public void init(){
-        photosSpanId = 0;
-        reloadPhotos();
+        /*if (findViewById(R.id.fragment_container) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            addpicsFragment = new AddPicsFragment();
+            progressBarFragment = new ProgressBarFragment();
+            //addpics.setArguments(getIntent().getExtras());
+            fragmentManager = getSupportFragmentManager();
+            transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.fragment_container, addpicsFragment).commit();
+        }*/
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        optionsMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+
+
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (photos != null) {
-            if (photos.size() > 0) {
-                menu.findItem(R.id.action_favorite).setVisible(true);
-            } else {
-                menu.findItem(R.id.action_favorite).setVisible(false);
-            }
+        if (photos.size() > 0) {
+            menu.findItem(R.id.action_favorite).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_favorite).setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void init(){
+        photosSpanId = 0;
+        reloadPhotos();
     }
 
     @Override
@@ -210,6 +246,14 @@ public class PhotoActivity extends AppCompatActivity{
     }
 
     @Override
+    public void onBackPressed() {
+        if(!isLoading){
+            super.onBackPressed();
+            return;
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(PHOTOS_KEY, photos);
@@ -227,7 +271,7 @@ public class PhotoActivity extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+        EasyImage.handleActivityResult(requestCode, resultCode, data, mActivity, new DefaultCallback() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
                 //Some error handling
@@ -244,15 +288,8 @@ public class PhotoActivity extends AppCompatActivity{
         photos.addAll(returnedPhotos);
         imagesAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(photos.size() - 1);
-        invalidateOptionsMenu();
+        mActivity.invalidateOptionsMenu();
         reloadPhotos();
-    }
-
-    @Override
-    public void onDestroy() {
-        // Clear any configuration that was done!
-        EasyImage.clearConfiguration(mActivity);
-        super.onDestroy();
     }
 
     public void reloadPhotos() {
@@ -261,9 +298,8 @@ public class PhotoActivity extends AppCompatActivity{
         grLayout = findViewById(R.id.gridLayout1);
 
         if(photos.size() > 0 ) {
-            PhotoActivity pActivity = (PhotoActivity)mActivity;
-            pActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            pActivity.invalidateOptionsMenu();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            invalidateOptionsMenu();
             for (int i = 0; i < photos.size(); i++) {
                 if (i > 5) {
                     break;
@@ -285,16 +321,16 @@ public class PhotoActivity extends AppCompatActivity{
                             targetImageView = findViewById(R.id.imageView12);
                             break;
                         case 2:
-                            targetImageView =  findViewById(R.id.imageView13);
+                            targetImageView = findViewById(R.id.imageView13);
                             break;
                         case 3:
-                            targetImageView =  findViewById(R.id.imageView14);
+                            targetImageView = findViewById(R.id.imageView14);
                             break;
                         case 4:
-                            targetImageView =  findViewById(R.id.imageView15);
+                            targetImageView = findViewById(R.id.imageView15);
                             break;
                         case 5:
-                            targetImageView =  findViewById(R.id.imageView16);
+                            targetImageView = findViewById(R.id.imageView16);
                             break;
                     }
                     targetImageView.setImageBitmap(myBitmap);
@@ -303,7 +339,7 @@ public class PhotoActivity extends AppCompatActivity{
             }
         }
         else{
-            targetImageView = findViewById(R.id.imageView11);
+            targetImageView = (ImageView) findViewById(R.id.imageView11);
             targetImageView.setImageResource(0);
             targetImageView.invalidate();
             targetImageView = findViewById(R.id.imageView12);
@@ -325,6 +361,7 @@ public class PhotoActivity extends AppCompatActivity{
     }
 
     public void turnOnProgressBar(int progress){
+        isLoading = true;
         optionsMenu.findItem(R.id.action_favorite).setVisible(false);
         ProgressBar progressBar = findViewById(R.id.progressBar2);
         ConstraintLayout cs = findViewById(R.id.photoMainCL);
@@ -342,6 +379,7 @@ public class PhotoActivity extends AppCompatActivity{
     }
 
     public void turnOffProgressBar(){
+        isLoading = false;
         ProgressBar progressBar = findViewById(R.id.progressBar2);
         ConstraintLayout cs = findViewById(R.id.photoMainCL);
         progressBar.setVisibility(View.INVISIBLE);

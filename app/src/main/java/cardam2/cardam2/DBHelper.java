@@ -14,8 +14,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
-import static java.lang.Math.round;
+import android.text.format.Time;
 
 /**
  * Created by iopiopi on 4/23/17.
@@ -96,23 +97,35 @@ public class DBHelper extends SQLiteOpenHelper {
     public void addCurUser(SQLiteDatabase db, String login, String Pass, int id, String email) {
         //SQLiteDatabase db = dbMyFitness;//this.getWritableDatabase();
         db.execSQL("DELETE FROM curUser");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         String format = simpleDateFormat.format(new Date());
         db.execSQL("INSERT INTO curUser (id, authLogin , authPass , status, loggedDate ,email, statementAccepted, secPolicyAccepted ) VALUES("+id+",'"+login+"','"+Pass+"','ACTIVE', '"+format+"', '"+email+"', 0, 0)");
     }
 
     public void uploadPhoto(SQLiteDatabase db){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         String timestamp = simpleDateFormat.format(new Date());
         db.execSQL("INSERT INTO uploadedPhoto (timestamp) VALUES('" + timestamp + "')");
 
     }
 
+
+    public void delUploadedPhoto(SQLiteDatabase db){
+        db.execSQL("DELETE FROM uploadedPhoto");
+
+    }
+
+
     public String uploadTimeNext(SQLiteDatabase db){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         String earliest;
         Date earliestDT = null;
-        Date now = new Date();
+        Date newDate = new Date();
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Long now = cal.getTimeInMillis();
         int hours = 24;
         String timestamp24h = addDateString(-24);
         String SQLquery = "SELECT timestamp FROM uploadedPhoto WHERE timestamp > '" + timestamp24h + "' ORDER BY id ASC LIMIT 1";
@@ -122,7 +135,7 @@ public class DBHelper extends SQLiteOpenHelper {
             earliest = cur.getString(0);
             try {
                 earliestDT = simpleDateFormat.parse(earliest);
-                long diff = now.getTime() - earliestDT.getTime();
+                long diff = now - earliestDT.getTime();
                 hours = 24 - (int)(diff / (1000 * 60 * 60));
             }
             catch(ParseException e){
@@ -189,9 +202,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public String addDateString(int interval){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         String timestamp = simpleDateFormat.format(new Date());
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         cal.setTime(new Date());
         cal.add(Calendar.HOUR_OF_DAY, interval);
         Date h24 = cal.getTime();

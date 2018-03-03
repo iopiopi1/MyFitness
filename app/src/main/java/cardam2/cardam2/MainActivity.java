@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         checkCurUser();
-
+        //db.deleteDatabase();//////////////////////////////////////////////////
         //drawer
         initLeftDrawer();
 

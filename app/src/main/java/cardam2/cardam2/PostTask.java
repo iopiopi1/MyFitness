@@ -26,6 +26,7 @@ import MyFitness.KeyValueList;
 
 import static android.app.Activity.RESULT_OK;
 import java.text.ParseException;
+import java.util.TimeZone;
 
 public class PostTask extends AsyncTask<String, String, String> {
     private String URL;
@@ -169,8 +170,8 @@ public class PostTask extends AsyncTask<String, String, String> {
 
             DataOutputStream dStream = new DataOutputStream(c.getOutputStream());
             dStream.writeBytes(getPostDataString(postDataParams));
-                dStream.flush();
-                dStream.close();
+            dStream.flush();
+            dStream.close();
             c.connect();
             String cc = c.getContent().toString();
             int status = c.getResponseCode();
@@ -242,9 +243,9 @@ public class PostTask extends AsyncTask<String, String, String> {
         try {
             db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postDataParams.getInt("id"), postDataParams.getString("email"));
         }
-    catch (JSONException e) {
-        e.printStackTrace();
-    }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getRegStatus(){
@@ -254,7 +255,8 @@ public class PostTask extends AsyncTask<String, String, String> {
     public String checkLoginStatus(String passChangedTimeServ, String passLoggedLoc){
         String isOld = null;
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date dtpassChangedTimeServ = null;
         Date dtpassLoggedLoc = null;
         try {

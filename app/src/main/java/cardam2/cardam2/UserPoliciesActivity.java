@@ -68,28 +68,28 @@ public class UserPoliciesActivity extends AppCompatActivity {
 
         Button accept =  (Button) findViewById(R.id.accept);
         accept.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View v) {
+            public void onClick(View v) {
 
-            if(curType == "secPolicyAccepted"){
-                db.updateCPAcceptence(db.dbMyFitness);
-                List<KeyValueList> postParams = db.getCurUser(db.dbMyFitness);
-                String cardamUrl = getResources().getString(R.string.cardamUrl);
-                String cardamUrlUpdPolicies = cardamUrl + getResources().getString(R.string.cardamUrlUpdPolicies);
-                PostTask jt = new PostTask(cardamUrlUpdPolicies, mActivity, postParams, R.id.const111, -1);
-                jt.execute();
-                Intent intent = new Intent(mActivity, MainActivity.class);
-                startActivity(intent);
-            }
-            if(curType == "statementAccepted"){
-                db.updateUSAcceptence(db.dbMyFitness);
-                ConstraintLayout cstr = (ConstraintLayout) findViewById(R.id.const111);
-                TextView tv = cstr.findViewById(R.id.textView3);
-                tv.setText(Html.fromHtml(getResources().getString(R.string.confidentiality)));
-                ScrollView scrl = cstr.findViewById(R.id.scrollview1);
-                scrl.fullScroll(ScrollView.FOCUS_UP);
-                cstr.invalidate();
-                curType = "secPolicyAccepted";
-            }
+                if(curType == "secPolicyAccepted"){
+                    db.updateCPAcceptence(db.dbMyFitness);
+                    List<KeyValueList> postParams = db.getCurUser(db.dbMyFitness);
+                    String cardamUrl = getResources().getString(R.string.cardamUrl);
+                    String cardamUrlUpdPolicies = cardamUrl + getResources().getString(R.string.cardamUrlUpdPolicies);
+                    PostTask jt = new PostTask(cardamUrlUpdPolicies, mActivity, postParams, R.id.const111, -1);
+                    jt.execute();
+                    Intent intent = new Intent(mActivity, MainActivity.class);
+                    startActivity(intent);
+                }
+                if(curType == "statementAccepted"){
+                    db.updateUSAcceptence(db.dbMyFitness);
+                    ConstraintLayout cstr = (ConstraintLayout) findViewById(R.id.const111);
+                    TextView tv = cstr.findViewById(R.id.textView3);
+                    tv.setText(Html.fromHtml(getResources().getString(R.string.confidentiality)));
+                    ScrollView scrl = cstr.findViewById(R.id.scrollview1);
+                    scrl.fullScroll(ScrollView.FOCUS_UP);
+                    cstr.invalidate();
+                    curType = "secPolicyAccepted";
+                }
             }
         });
 

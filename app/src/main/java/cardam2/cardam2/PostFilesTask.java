@@ -158,19 +158,19 @@ public class PostFilesTask extends AsyncTask<String, Integer, String> {
                     String value = parmas.get(key);
 
                     //if (outputStream != null) {
-                        outputStream = new DataOutputStream(connection.getOutputStream());
-                        outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-                        outputStream.writeBytes("Content-Disposition: form-data; name=\"" + key + "\"" + lineEnd);
-                        outputStream.writeBytes("Content-Type: text/plain" + lineEnd);
-                        outputStream.writeBytes(lineEnd);
-                        outputStream.writeBytes(value);
-                        outputStream.writeBytes(lineEnd);
+                    outputStream = new DataOutputStream(connection.getOutputStream());
+                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+                    outputStream.writeBytes("Content-Disposition: form-data; name=\"" + key + "\"" + lineEnd);
+                    outputStream.writeBytes("Content-Type: text/plain" + lineEnd);
+                    outputStream.writeBytes(lineEnd);
+                    outputStream.writeBytes(value);
+                    outputStream.writeBytes(lineEnd);
                     //}
 
                 }
 
                 //if (outputStream != null) {
-                    outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
                 //}
 
                 if (200 != connection.getResponseCode()) {
@@ -223,7 +223,6 @@ public class PostFilesTask extends AsyncTask<String, Integer, String> {
         }
         db.uploadPhoto(db.dbMyFitness);
         PhotoActivity photoActivity = (PhotoActivity)parActivity;
-        AddPicsFragment addpicsFragment = photoActivity.addpicsFragment;
         if(isLast) {
             photoActivity.turnOffProgressBar();
             Snackbar snackbar = Snackbar.make(photoActivity.findViewById(R.id.constraintLayout3), R.string.photos_success_upload, Snackbar.LENGTH_LONG);

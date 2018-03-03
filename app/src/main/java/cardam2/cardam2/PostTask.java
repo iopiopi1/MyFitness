@@ -26,6 +26,7 @@ import MyFitness.KeyValueList;
 
 import static android.app.Activity.RESULT_OK;
 import java.text.ParseException;
+import java.util.TimeZone;
 
 public class PostTask extends AsyncTask<String, String, String> {
     private String URL;
@@ -38,6 +39,7 @@ public class PostTask extends AsyncTask<String, String, String> {
     public static final int RESTORETYPE = 1;
     public static final int REGTYPE = 2;
     public static final int CHECKLOGINTYPE = 3;
+    public static final int UPDATEPOLICIES = 4;
     private String RegStatus = "";
 
     public PostTask(String sendUrl, Activity act, List<KeyValueList> postParams, int vViewId, int tType) {
@@ -164,12 +166,12 @@ public class PostTask extends AsyncTask<String, String, String> {
             c.setDoInput(true);
             c.setDoOutput(true);
             c.setReadTimeout(10000);
-            c.setConnectTimeout(15000);
+            c.setConnectTimeout(3000);
 
             DataOutputStream dStream = new DataOutputStream(c.getOutputStream());
             dStream.writeBytes(getPostDataString(postDataParams));
-                dStream.flush();
-                dStream.close();
+            dStream.flush();
+            dStream.close();
             c.connect();
             String cc = c.getContent().toString();
             int status = c.getResponseCode();
@@ -197,17 +199,19 @@ public class PostTask extends AsyncTask<String, String, String> {
             }
 
         } catch (Exception ex) {
-            return ex.toString();
+            return "{\"state\":\"failed\",\"errorMsg\" : \"Произошла ошибка " + ex.toString() +"\"}";
         } finally {
             if (c != null) {
                 try {
                     c.disconnect();
                 } catch (Exception ex) {
                     //disconnect error
+                    return "{\"state\":\"failed\",\"errorMsg\" : \"Произошла ошибка " + ex.toString() +"\"}";
                 }
             }
+
         }
-        return null;
+        return "{\"state\":\"failed\",\"errorMsg\" : \"Произошла ошибка\"}";
     }
 
     public String getPostDataString(JSONObject params) throws Exception {
@@ -239,9 +243,9 @@ public class PostTask extends AsyncTask<String, String, String> {
         try {
             db.addCurUser(db.dbMyFitness, postDataParams.getString("username"), postDataParams.getString("password"), postDataParams.getInt("id"), postDataParams.getString("email"));
         }
-    catch (JSONException e) {
-        e.printStackTrace();
-    }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getRegStatus(){
@@ -251,7 +255,8 @@ public class PostTask extends AsyncTask<String, String, String> {
     public String checkLoginStatus(String passChangedTimeServ, String passLoggedLoc){
         String isOld = null;
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date dtpassChangedTimeServ = null;
         Date dtpassLoggedLoc = null;
         try {
